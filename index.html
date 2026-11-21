@@ -370,10 +370,12 @@ const Q=[
  T('onoma','オノマトペや言葉そのものを聴くASMRは？'),
  T('irl','実写・コスプレ・手元映像のASMRは？'),
  T('water','水・炭酸・ジェル・泡などの音は？'),
- {id:'micType',after:'mic',q:'好きなマイクの種類は？',h:'同じ耳かきでもマイクで聴こえ方が変わります',o:[
+ {id:'micType',after:'mic',when:h=>h.some(x=>x.q==='mic'&&x.o===1),q:'立体音響の中で、好きなマイクは？',h:'同じ耳かきでもマイクで聴こえ方が変わります',o:[
    ['KU100（重厚・リアル）','',c=>hasKU(c)?1:0.1],['3Dio（耳に近い・刺激強め）','',c=>c.mic.some(m=>/3Dio/.test(m))?1:0.1],['SR3D・ダミーヘッドなど','',c=>c.mic.some(m=>/SR3D|ダミー/.test(m))?1:0.12],['こだわらない','',()=>1]]},
- {id:'size2',after:'size',q:'もう少し細かく、登録者数はどのくらいの人がいい？',h:'',o:[
-   ['50万人以上','',c=>c.subs>=5e5?1:0.08],['15万〜50万人','',c=>c.subs>=1.5e5&&c.subs<5e5?1:0.08],['15万人未満','',c=>c.subs<1.5e5?1:0.08],['わからない','',()=>1]]},
+ {id:'sizeMid',after:'size',when:h=>h.some(x=>x.q==='size'&&x.o===1),q:'人気（20万〜100万人）の中だと、どのくらい？',h:'',o:[
+   ['50万〜100万人','',c=>c.subs>=5e5&&c.subs<1e6?1:0.08],['20万〜50万人','',c=>c.subs>=2e5&&c.subs<5e5?1:0.08],['どちらでも','',()=>1]]},
+ {id:'sizeSmall',after:'size',when:h=>h.some(x=>x.q==='size'&&x.o===2),q:'5万〜20万人の中だと、どのくらい？',h:'',o:[
+   ['10万〜20万人','',c=>c.subs>=1e5&&c.subs<2e5?1:0.08],['5万〜10万人','',c=>c.subs<1e5?1:0.08],['どちらでも','',()=>1]]},
  {id:'freq',q:'配信・投稿の頻度はどのくらいの人がいい？',h:'',o:[
    ['ほぼ毎日','',c=>c.pw>=5?1:c.pw>=2.5?0.3:0.05],['週に2〜4回','',c=>c.pw>=2&&c.pw<5?1:0.18],['週1回くらい','',c=>c.pw>=0.8&&c.pw<2?1:0.18],['たまに（週1未満）','',c=>c.pw<0.8?1:c.pw<1.5?0.3:0.05],['こだわらない','',()=>1]]},
  {id:'live2',after:'live',q:'生配信の頻度はどのくらいがいい？',h:'',o:[
@@ -386,7 +388,7 @@ const QI=Object.fromEntries(Q.map(q=>[q.id,q]));
 const MIN_Q=8,MAX_Q=20;
 
 /* ---------- 状態 ---------- */
-const VER='asmr-shindan-v8';
+const VER='asmr-shindan-v9';
 let extra=0,hist=[],rejected=[],filter='all',showAll=false;
 try{const s=JSON.parse(localStorage.getItem(VER)||'null');if(s&&Array.isArray(s.h)){hist=s.h.filter(h=>QI[h.q]);rejected=s.r||[]}}catch(e){}
 const save=()=>{try{localStorage.setItem(VER,JSON.stringify({h:hist,r:rejected}))}catch(e){}};
@@ -483,7 +485,8 @@ function reasons(c){
     if(q==='mic'&&o<2&&(o===0?hasKU(c):c.mic.length))out.push(o===0?'KU100を使用':'立体音響');
     if(q==='voice'&&o===1&&c.f.none>=0.5)out.push('ノートーク');
     if(q==='freq'&&o<4&&[c.pw>=5,c.pw>=2&&c.pw<5,c.pw>=0.8&&c.pw<2,c.pw<0.8][o])out.push(['ほぼ毎日配信','週2〜4回のペース','週1回くらいのペース','マイペースな更新'][o]);
-    if(q==='size2'&&o<3&&[c.subs>=5e5,c.subs>=1.5e5&&c.subs<5e5,c.subs<1.5e5][o])out.push(['登録者50万人以上','登録者15万〜50万人','登録者15万人未満'][o]);
+    if(q==='sizeMid'&&o<2&&[c.subs>=5e5&&c.subs<1e6,c.subs>=2e5&&c.subs<5e5][o])out.push(['登録者50万〜100万人','登録者20万〜50万人'][o]);
+    if(q==='sizeSmall'&&o<2&&[c.subs>=1e5&&c.subs<2e5,c.subs<1e5][o])out.push(['登録者10万〜20万人','登録者5万〜10万人'][o]);
     if(q==='micType'&&o<3&&[hasKU(c),c.mic.some(m=>/3Dio/.test(m)),c.mic.some(m=>/SR3D|ダミー/.test(m))][o])out.push(['KU100','3Dio','SR3D・ダミーヘッド'][o]+'を使用');
     if(q==='size'&&o<3&&['big','mid','small'][o]===tier(c))out.push(['登録者100万人以上','登録者20万〜100万人','登録者5万〜20万人'][o]);
     if(q==='time'&&o<4&&c.tb&&c.tb[o]>=0.4)out.push(['朝・昼','夕方〜夜早め','夜21〜24時','深夜0時以降'][o]+'によく配信');
