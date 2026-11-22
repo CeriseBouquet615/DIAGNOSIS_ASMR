@@ -58,6 +58,16 @@ section h2 small{font-size:14px;color:var(--mute);font-weight:500}
 .tags span.vt{color:var(--acc);border:1px solid var(--acc)}
 .card p.d{margin:0;font-size:14px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card a.yt{margin-top:auto;font-size:14px;padding-top:4px}
+.rank{margin-top:22px;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px 18px}
+.rkhd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.rank h3{margin:0;font-size:18px}
+.rktabs{display:flex;gap:6px}.rktabs .chip{min-height:34px;padding:3px 12px;font-size:13px}
+.rkcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:8px 20px;margin-top:6px}
+.rank h4{margin:12px 0 6px;font-size:14px;color:var(--mute);font-weight:500}
+ol.rk{list-style:none;margin:0;padding:0;display:grid;gap:6px}ol.rk li{display:flex;align-items:center;gap:10px;font-size:14.5px}
+ol.rk .no{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--bg2);color:var(--mute)}
+ol.rk li:nth-child(-n+3) .no{background:var(--acc);color:var(--on)}
+ol.rk a,ol.rk button.simname{background:none;border:none;font:inherit;cursor:pointer;padding:0;flex:1;color:var(--ink);text-decoration:none;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ol.rk small{color:var(--mute);white-space:nowrap}.rkempty{color:var(--mute);font-size:13.5px;margin:0}.rknote{color:var(--mute);font-size:12.5px;margin:12px 0 0}
 .empty{color:var(--mute);margin-top:30px}
 details.more{font-size:13.5px}details.more summary{cursor:pointer;color:var(--lav);min-height:36px;display:flex;align-items:center}
 details.more h4{margin:10px 0 4px;font-size:13px;color:var(--mute);font-weight:500}
@@ -87,6 +97,7 @@ details.more h4{margin:10px 0 4px;font-size:13px;color:var(--mute);font-weight:5
 .nightbtn{font:inherit;font-size:13px;background:transparent;color:var(--mute);border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;min-height:34px;cursor:pointer;white-space:nowrap}
 .nightbtn:hover{color:var(--ink)}.nightbtn.hint{border-color:var(--acc);color:var(--acc)}
 </style>
+<script data-goatcounter="https://konya-oshi-asmr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -94,6 +105,8 @@ details.more h4{margin:10px 0 4px;font-size:13px;color:var(--mute);font-weight:5
   <h1>掲載チャンネル一覧</h1>
   <p class="sub" id="lead">今夜の推しASMRに載っているチャンネルを、ジャンル別にまとめました。</p>
   <a class="cta" href="./">☾ 質問に答えて、今夜の推しを診断する</a>
+
+  <div id="rankBox"></div>
 
   <section class="omakase" id="random">
     <h2>☆ 今夜のおまかせ</h2>
@@ -125,7 +138,7 @@ details.more h4{margin:10px 0 4px;font-size:13px;color:var(--mute);font-weight:5
 
   <p class="count" id="count"></p>
   <main id="list"></main>
-  <p class="note">データ更新日：2026年11月22日。登録者数などはYouTube Data APIで取得した時点の値です。ジャンルや声の性別は、動画タイトル・タグ・概要欄から自動で判定した目安なので、実際の作風と違うことがあります。1つのチャンネルが複数のジャンルに入ることもあります。</p>
+  <p class="note">データ更新日：2026年11月22日。登録者数などはYouTube Data APIで取得した時点の値です。アクセス解析にGoatCounterを使っています（Cookieは使いません）。ジャンルや声の性別は、動画タイトル・タグ・概要欄から自動で判定した目安なので、実際の作風と違うことがあります。1つのチャンネルが複数のジャンルに入ることもあります。</p>
 </div>
 <script>
 const G=[
@@ -176,12 +189,13 @@ const FL={ear:'耳かき',whisper:'囁き・吐息',brush:'マッサージ・ブ
 function more(c){
   const feats=Object.keys(FL).filter(k=>c.f[k]>0.05).sort((a,b)=>c.f[b]-c.f[a]).slice(0,6);
   const nb=nowB();
+  const lens=(c.dm!=null||c.lm!=null)?`<h4>長さの目安</h4><p style="margin:0">${c.dm!=null?`ASMR動画 約${c.dm}分`:''}${c.dm!=null&&c.lm!=null?'・':''}${c.lm!=null?`生配信 約${c.lm}分`:''}${c.we!=null?`・週末の配信 ${Math.round(c.we*100)}%`:''}</p>`:'';
   const time=c.tb?`<h4>生配信を始める時間帯（よく配信：${c.th}時ごろ）</h4><div class="bars">${BK.map((l,i)=>`<span>${l}</span><span class="tr"><i class="${i===nb?'now':''}" style="width:${Math.round(c.tb[i]*100)}%"></i></span><span class="n">${Math.round(c.tb[i]*100)}%</span>`).join('')}</div>`:'<h4>生配信の時間帯</h4><p style="margin:0;color:var(--mute)">動画投稿が中心のため、データがありません</p>';
   const fs=feats.length?`<h4>最近の動画に多い音（目安）</h4><div class="bars">${feats.map(k=>`<span>${FL[k]}</span><span class="tr"><i style="width:${Math.round(c.f[k]*100)}%"></i></span><span class="n"></span>`).join('')}</div>`:'';
   const vs=(c.v||[]).length?`<h4>最近のASMR動画</h4><ul class="vl">${c.v.map(v=>`<li><a href="https://www.youtube.com/watch?v=${encodeURIComponent(v[0])}" target="_blank" rel="noopener">▶ ${esc(v[1])}</a><small>${v[2]}${v[3]?'・生配信':''}</small></li>`).join('')}</ul>`:'';
   const sm=(c.sim||[]).map(j=>C[j]).filter(Boolean);
   const sims=sm.length?`<h4>この人が好きならこちらも</h4><div class="tags">${sm.map(x=>`<button class="simname" data-n="${esc(x.name)}">${esc(x.name)}</button>`).join('')}</div>`:'';
-  return `<details class="more"><summary>詳しく見る</summary>${vs}${time}${fs}${sims}</details>`;
+  return `<details class="more"><summary>詳しく見る</summary>${vs}${lens}${time}${fs}${sims}</details>`;
 }
 function card(c,opts){
   const gs=G.filter(([k])=>c.f[k]>=TH).sort((a,b)=>c.f[b[0]]-c.f[a[0]]).slice(0,4).map(g=>`<span>${g[1]}</span>`).join('');
@@ -189,7 +203,7 @@ function card(c,opts){
   const mics=c.mic.map(m=>`<span class="mic">${esc(m)}</span>`).join('');
   const male=c.g==='m'?'<span>男性</span>':'';
   const time=c.tb?`・よく配信：${c.th}時ごろ`:'';
-  const pv=opts&&opts.v?`<a class="pv" href="https://www.youtube.com/watch?v=${encodeURIComponent(opts.v[0])}" target="_blank" rel="noopener">▶ ${esc(opts.v[1])}</a>`:'';
+  const pv=opts&&opts.v?`<a class="pv" data-gc="動画クリック/おまかせ" href="https://www.youtube.com/watch?v=${encodeURIComponent(opts.v[0])}" target="_blank" rel="noopener">▶ ${esc(opts.v[1])}</a>`:'';
   return `<article class="card"><div class="hd"><h3>${esc(c.name)}</h3>${favBtn(c)}</div>
   <p class="facts">${c.subs?`登録者 <b>${fmt(c.subs)}</b>`:'登録者数 非公開'}${c.last?`・最終 ${c.last}`:''}${time}</p>
   <div class="tags">${who}${male}${mics}${gs}</div>
@@ -216,11 +230,28 @@ function render(){
 }
 document.getElementById('genres').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;st.g=b.dataset.g;render();document.getElementById('count').scrollIntoView({block:'start',behavior:'smooth'})});
 document.querySelectorAll('.toggle').forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.f;st.f.has(f)?st.f.delete(f):st.f.add(f);b.setAttribute('aria-pressed',st.f.has(f));render()}));
+document.addEventListener('click',e=>{const a=e.target.closest('[data-gc]');if(a)gc(a.dataset.gc)});
 document.addEventListener('click',e=>{const sb=e.target.closest('.simname');if(!sb)return;const q=document.getElementById('q');q.value=sb.dataset.n;st.q=sb.dataset.n;st.g='all';render();document.getElementById('count').scrollIntoView({block:'start',behavior:'smooth'})});
-document.addEventListener('click',e=>{const b=e.target.closest('.fav');if(!b)return;const n=b.dataset.name;FAV.has(n)?FAV.delete(n):FAV.add(n);saveFav();
+document.addEventListener('click',e=>{const b=e.target.closest('.fav');if(!b)return;const n=b.dataset.name;FAV.has(n)?FAV.delete(n):(FAV.add(n),gc('お気に入り追加/'+n));saveFav();
   document.querySelectorAll('.fav').forEach(x=>{if(x.dataset.name===n){const on=FAV.has(n);x.textContent=on?'★':'☆';x.setAttribute('aria-pressed',on);x.setAttribute('aria-label',n+'をお気に入り'+(on?'から外す':'に追加'))}});
   document.getElementById('favBtn').textContent=`★ お気に入り${FAV.size?' '+FAV.size:''}`;if(st.f.has('fav'))render()});
-function omakase(){
+const gc=(path)=>{try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:path,title:path,event:true})}catch(e){}};
+
+// みんなの推しランキング（goat_ranking.py が作る ranking.json を表示。なければ出さない）
+let RANK=null,rankP=0;
+function rankHTML(nameHTML){
+  if(!RANK||!RANK.periods||!RANK.periods.some(p=>(p.results||[]).length||(p.favs||[]).length))return '';
+  const P=RANK.periods[rankP]||RANK.periods[0];
+  const list=(arr,unit)=>arr.length?`<ol class="rk">${arr.map((x,i)=>`<li><span class="no">${i+1}</span>${nameHTML(x.name)}<small>${x.count}${unit}</small></li>`).join('')}</ol>`:'<p class="rkempty">まだデータがありません</p>';
+  return `<section class="rank"><div class="rkhd"><h3>みんなの推しランキング</h3><div class="rktabs">${RANK.periods.map((p,i)=>`<button class="chip rkt" data-i="${i}" aria-pressed="${i===rankP}">${p.label}</button>`).join('')}</div></div>
+  <div class="rkcols"><div><h4>診断でよく出た配信者</h4>${list(P.results||[],'人')}</div><div><h4>お気に入りに入れられた配信者</h4>${list(P.favs||[],'人')}</div></div>
+  <p class="rknote">集計：${RANK.updated}時点（アクセス解析の数をもとにしています）</p></section>`;
+}
+function drawRank(){const b=document.getElementById('rankBox');if(!b)return;
+  b.innerHTML=rankHTML(n=>`<button class="simname" data-n="${esc(n)}">${esc(n)}</button>`);
+  b.querySelectorAll('.rkt').forEach(t=>t.onclick=()=>{rankP=+t.dataset.i;drawRank()})}
+fetch('ranking.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(d=>{RANK=d;drawRank()}).catch(()=>{});
+function omakase(){gc('おまかせ');
   const pool=C.filter(pass).filter(c=>st.g==='all'||inG(c,st.g));const out=document.getElementById('pickOut');
   if(!pool.length){out.innerHTML='<p class="empty" style="margin-top:12px">条件に合うチャンネルがありません。絞り込みを少しゆるめてみてください。</p>';return}
   const c=pool[Math.floor(Math.random()*pool.length)];
@@ -247,7 +278,7 @@ fetch('data.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status
   const set=v=>{v?document.documentElement.setAttribute('data-night',''):document.documentElement.removeAttribute('data-night');try{localStorage.setItem('asmr-night',v?'1':'0')}catch(e){}label()};
   const label=()=>{b.textContent=on()?'☀ 元の明るさ':'☾ おやすみモード';b.setAttribute('aria-pressed',on());
     let chosen=null;try{chosen=localStorage.getItem('asmr-night')}catch(e){}const h=new Date().getHours();b.classList.toggle('hint',!on()&&chosen===null&&(h>=21||h<5))};
-  b.addEventListener('click',()=>set(!on()));label();})();
+  b.addEventListener('click',()=>{set(!on());try{on()&&window.goatcounter&&window.goatcounter.count({path:'おやすみモードON',event:true})}catch(e){}});label();})();
 </script>
 </body>
 </html>
