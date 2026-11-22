@@ -175,6 +175,7 @@ details.src td.num{text-align:right;white-space:nowrap}
 
 <script>
 fetch('data.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(C=>{
+
 /* ================= 診断エンジン =================
   各チャンネル c は f（特徴 0〜1）、lang、vt、live、subs、mic、spicy を持つ。
   質問の各選択肢は「このチャンネルならその答えをどれくらい選びそうか」(尤度 0〜1) を返す。
@@ -543,9 +544,9 @@ document.getElementById('subline').textContent=`質問に答えるたびに、${
 document.getElementById('srcBody').innerHTML=`<p>YouTube Data APIで取得したデータです（データ更新日：2026年11月22日）。あらかじめ選んだ配信者に加え、「ASMR KU100」「ASMR 耳かき 睡眠導入」など28個の言葉で半年以内の動画を検索し、投稿者を自動で集めました。掲載条件は<b>登録者3万人以上</b>・<b>半年以内に配信あり</b>・<b>直近50本のうちASMRのタイトルが6本以上</b>で、今は${C.length}チャンネル（VTuber ${C.filter(c=>c.vt).length}人）を載せています。</p>
 <p>質問は「20の質問」ゲームと同じ考え方で選んでいます。各チャンネルの特徴（言語、VTuberかどうか、生配信の割合・時間帯・曜日・長さ、動画の長さ、配信頻度、機材、登録者数、最近50本のタイトル・概要欄・タグや再生リスト名に出てくる音の種類など）を数値にし、答えによって候補が最も均等に分かれる質問を毎回計算して出します。候補が十分に絞れたら（または${MAX_Q}問で）結果を出します。声の性別や自動で集めたチャンネルの紹介文は、タイトルなどから推測したものです。チャンネルごとの詳しい情報は<a href="channels.html">掲載チャンネル一覧</a>で見られます。</p>`;
 
+
 render();
 }).catch(err=>{document.getElementById('app').innerHTML='<p style="padding:24px">データを読み込めませんでした。ページを再読み込みしてください。（'+err.message+'）</p>'});
-
 </script>
 <script>
 (function(){const b=document.getElementById('nightBtn');if(!b)return;
