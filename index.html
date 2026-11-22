@@ -3,22 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ASMR推し診断</title>
+<title>今夜の推しASMR</title>
+<meta name="description" content="質問に答えるだけで、あなたの耳にぴったりのASMR配信者が見つかる診断">
+<meta name="theme-color" content="#0c1626">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="今夜の推しASMR">
+<meta property="og:title" content="今夜の推しASMR｜あなたのASMR推しが見つかる診断">
+<meta property="og:description" content="質問に答えるだけで、200以上のASMRチャンネルからあなたの耳にぴったりの推しを探します。">
+<meta property="og:url" content="https://cerisebouquet615.github.io/DIAGNOSIS_ASMR/">
+<meta property="og:image" content="https://cerisebouquet615.github.io/DIAGNOSIS_ASMR/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<script>try{if(localStorage.getItem("asmr-night")==="1")document.documentElement.setAttribute("data-night","")}catch(e){}</script>
 <style>
-/* VOICE: 夜更けにそっと話しかける、やさしく親密な声
-   IDEA: 深夜ラジオのチューナー。質問に答えるたびに周波数が合っていく
-   PICTURE: ヘッドホンから広がる音の輪。回答が進むほど輪が増え、結果で共鳴する
-   COLOUR and TYPE: 夜の藍 #17143a、ラベンダー #b9a8ff、灯りのピーチ #ffb38a／Zen Maru Gothic
-   LAYOUT: 上に音の輪と進捗、その下に一問ずつ大きな選択肢。結果は1位を大きく、VTuber部門と総合を並べる */
-:root{color-scheme:dark;--bg:#17143a;--bg2:#211d4d;--card:#2a2560;--ink:#f4f0ff;--mute:#b8b0dc;--lav:#b9a8ff;--acc:#ffb38a;--line:#3d377a;--mint:#8fe3cf}
-:root[data-theme=light]{color-scheme:light;--bg:#efeaff;--bg2:#e3dcff;--card:#ffffff;--ink:#1d1845;--mute:#5b5488;--lav:#6a52e0;--acc:#d9632c;--line:#cfc6f5;--mint:#167a64}
+/* VOICE: 寝る前にそっと話しかける、やさしい声
+   IDEA: 星空のおやすみ。今夜聴く1本を、眠る前に一緒に選ぶ
+   PICTURE: 夜空に三日月と星。回答が進むほど月のまわりに光の輪が増える
+   COLOUR and TYPE: 深い夜の青 #0c1626、月あかりの水色 #8cc8d8、星の金 #f3dca0／Zen Maru Gothic
+   LAYOUT: 上に時刻と夜空、その下に一問ずつ大きな選択肢。結果は1位を大きく、次点と総合を並べる */
+:root{color-scheme:dark;--moon:#f3dca0;--star:#fff;--bg:#0c1626;--bg2:#122036;--card:#15263e;--ink:#e3edf8;--mute:#93a9c6;--lav:#8cc8d8;--acc:#f3dca0;--line:#24395a;--mint:#9be0c6;--on:#0c1626}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Zen Maru Gothic",system-ui,sans-serif;overflow-x:clip;min-height:100vh}
+body{margin:0;background:var(--bg) radial-gradient(120% 60% at 50% -10%,#1a2d4d 0%,transparent 60%) no-repeat;color:var(--ink);font:16px/1.6 "Zen Maru Gothic",system-ui,sans-serif;overflow-x:clip;min-height:100vh}
 .wrap{max-width:780px;margin:0 auto;padding:clamp(20px,4vw,48px) max(4vw,16px) 64px}
 h1{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:0;font-weight:900;text-wrap:balance}
 .sub{color:var(--mute);margin:6px 0 0;font-size:15px}
+.clock{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;color:var(--mute);font-size:14px;margin:0 0 14px}
+.clock b{font-size:22px;color:var(--ink);font-weight:700;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.clock b i{font-style:normal;animation:blink 2s steps(1) infinite}@keyframes blink{50%{opacity:.35}}
+.clock b small{font-size:13px;color:var(--mute);margin-left:4px;font-weight:500}
+@media(prefers-reduced-motion:reduce){.clock b i{animation:none}}
+.tw{animation:tw 3.6s ease-in-out infinite}@keyframes tw{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.tw{animation:none}}
 .stage{position:relative;height:clamp(160px,28vw,220px);margin:12px 0 8px}
 .stage svg{position:absolute;inset:0;width:100%;height:100%}
 .ring{fill:none;stroke:var(--lav);transform-origin:center;transform-box:fill-box}
@@ -38,14 +57,14 @@ h1{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:0;font-weight:900;text-
 .opt:focus-visible,.btn:focus-visible,a:focus-visible,.chip:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .nav{display:flex;gap:10px;justify-content:space-between;margin-top:20px;flex-wrap:wrap}
 .btn{font:inherit;font-weight:700;border-radius:999px;padding:12px 22px;min-height:46px;cursor:pointer;border:2px solid var(--line);background:transparent;color:var(--ink)}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:#1d1240}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--on)}
 .resetrow{display:flex;justify-content:center;margin-top:18px}.reset{font:inherit;font-size:14px;background:none;border:none;color:var(--mute);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:10px 12px;min-height:44px}.reset:hover{color:var(--ink)}
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:10px;justify-content:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 70%,transparent)}
-.dock .btn{flex:1;max-width:260px;background:var(--bg2)}.dock .btn.pri{background:var(--acc)}
+.dock .btn{flex:1;max-width:260px;background:var(--bg2);padding:12px 12px;white-space:nowrap;font-size:15px}.dock .btn.pri{background:var(--acc)}
 #app:has(.dock){padding-bottom:96px}
 .btn:disabled{opacity:.4;cursor:default}
 .top{background:var(--card);border-radius:24px;padding:clamp(20px,4vw,32px);border:2px solid var(--acc)}
-.badge{display:inline-block;background:var(--acc);color:#1d1240;font-weight:900;border-radius:999px;padding:3px 12px;font-size:13px}
+.badge{display:inline-block;background:var(--acc);color:var(--on);font-weight:900;border-radius:999px;padding:3px 12px;font-size:13px}
 .top h2{font-size:clamp(28px,5.5vw,44px);line-height:1.08;margin:10px 0 4px}
 .pct{font-size:clamp(40px,8vw,64px);font-weight:900;color:var(--acc);line-height:1;white-space:nowrap}
 .row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
@@ -60,6 +79,19 @@ h1{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:0;font-weight:900;text-
 .infer b{color:var(--mint)}
 .first{background:var(--bg2);border-radius:14px;padding:12px 14px;margin-top:10px;font-size:15px}
 .first b{color:var(--acc)}
+a.pick{display:flex;flex-direction:column;gap:4px;margin-top:14px;background:var(--bg2);border:2px solid var(--lav);border-radius:16px;padding:14px 16px;color:var(--ink);text-decoration:none}
+a.pick:hover{background:color-mix(in srgb,var(--lav) 10%,var(--bg2))}
+a.pick .pk{color:var(--lav);font-weight:700;font-size:14px}a.pick b{font-size:16px;line-height:1.5}a.pick small{color:var(--mute);font-size:13px}
+.run a.pv{color:var(--ink);font-size:13.5px;line-height:1.5;text-decoration:none;background:var(--bg2);border-radius:10px;padding:8px 10px;margin-top:4px}.run a.pv span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.run a.pv:hover{background:color-mix(in srgb,var(--lav) 12%,var(--bg2))}
+.acts{display:flex;flex-wrap:wrap;gap:8px}.acts a.go.share{border-color:var(--line)}
+#app.fade{animation:fadeUp .45s ease-out}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#app.fade{animation:none}}
+.sims{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px;margin-top:8px}
+.sim{background:var(--bg2);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.sim .row{align-items:center;flex-wrap:nowrap}.sim b{font-size:15px;line-height:1.35}.sim .tags{margin:0}.sim a{color:var(--lav);font-size:13.5px}
+.sim a.pv{color:var(--ink);text-decoration:none;background:var(--card);border-radius:10px;padding:7px 9px}.sim a.pv span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+details.hist{margin-top:18px;background:var(--bg2);border-radius:14px;padding:10px 16px;font-size:14px}details.hist summary{cursor:pointer;font-weight:700;min-height:36px;display:flex;align-items:center}
+details.hist ul{list-style:none;margin:6px 0;padding:0;display:grid;gap:6px}details.hist li{display:flex;justify-content:space-between;gap:10px}details.hist a{color:var(--ink)}details.hist small{color:var(--mute);white-space:nowrap}
 a.go{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--ink);background:var(--bg2);border:2px solid var(--lav);border-radius:999px;padding:10px 18px;font-weight:700;text-decoration:none;min-height:44px}
 .runners{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:12px}
 .run{background:var(--card);border-radius:18px;padding:16px 18px;border:2px solid var(--line);display:flex;flex-direction:column;gap:6px}
@@ -78,58 +110,78 @@ h4{font-size:19px;margin:30px 0 4px}
 .all .t{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.all .t i{display:block;height:100%;background:var(--lav)}
 .all .t i.v{background:var(--acc)}
 .all .n{text-align:right;color:var(--mute)}
-details.src{margin-top:26px;background:var(--bg2);border-radius:14px;padding:12px 16px;font-size:13.5px;color:var(--mute)}
+.fav{flex:none;font:inherit;font-size:22px;line-height:1;background:none;border:none;color:var(--mute);cursor:pointer;padding:6px;min-width:40px;min-height:40px;border-radius:999px;vertical-align:middle}.fav[aria-pressed=true]{color:var(--acc)}.fav:hover{background:var(--bg2)}
+a.list+a.list{margin-top:10px}
+a.list{display:flex;justify-content:space-between;align-items:center;margin-top:26px;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 18px;color:var(--ink);text-decoration:none;font-weight:700;min-height:48px}a.list:hover{border-color:var(--lav)}a.list span{color:var(--lav)}
+details.src{margin-top:12px;background:var(--bg2);border-radius:14px;padding:12px 16px;font-size:13.5px;color:var(--mute)}
 details.src summary{cursor:pointer;color:var(--ink);font-weight:700;min-height:32px}
 details.src table{width:100%;border-collapse:collapse;margin-top:8px}
 details.src td,details.src th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
 details.src td.num{text-align:right;white-space:nowrap}
 .note{color:var(--mute);font-size:13px;margin-top:18px}
-.toast{position:fixed;left:50%;bottom:96px;z-index:30;transform:translateX(-50%);background:var(--acc);color:#1d1240;font-weight:700;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast{position:fixed;left:50%;bottom:96px;z-index:30;transform:translateX(-50%);background:var(--acc);color:var(--on);font-weight:700;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .3s;pointer-events:none}
 .toast.show{opacity:1}
 @media(max-width:600px){.all div{grid-template-columns:minmax(0,8em) minmax(0,1fr) 3em}details.src table{font-size:12.5px}}
+
+:root[data-night]{--bg:#05080e;--bg2:#0a0f17;--card:#0b1119;--ink:#a3aab5;--mute:#5f6a7a;--lav:#6f8e98;--acc:#b5965f;--line:#172030;--mint:#5f8f80;--on:#d1bd8f;--moon:#8a6f45;--star:#4d5561}
+:root[data-night] body{background:var(--bg)}
+:root[data-night] .btn.pri,:root[data-night] .badge,:root[data-night] .toast,:root[data-night] .cta,:root[data-night] .btn:not(.sub2)[id=pick]{background:#3a3122!important;border-color:#3a3122!important;color:#d1bd8f!important}
+:root[data-night] *,:root[data-night] *::before{animation:none!important;transition:none!important}
+:root[data-night] .tw{opacity:.5}
+.nightbtn{font:inherit;font-size:13px;background:transparent;color:var(--mute);border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;min-height:34px;cursor:pointer;white-space:nowrap}
+.nightbtn:hover{color:var(--ink)}.nightbtn.hint{border-color:var(--acc);color:var(--acc)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>ASMR推しアキネーター</h1>
+  <div class="clock" aria-live="off"><b id="clockTime">--:--</b><span id="clockMsg">おやすみ前に、今夜の1本を</span><button class="nightbtn" id="nightBtn" aria-pressed="false">☾ おやすみモード</button></div>
+  <h1>今夜の推しASMR</h1>
   <p class="sub" id="subline">質問に答えるたびに候補を絞り込みます</p>
 
   <div class="stage" aria-hidden="true">
     <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
-      <defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffb38a" stop-opacity=".35"/><stop offset="1" stop-color="#ffb38a" stop-opacity="0"/></radialGradient></defs>
-      <circle cx="200" cy="100" r="95" fill="url(#glow)"/>
+      <defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" style="stop-color:var(--moon)" stop-opacity=".22"/><stop offset="1" style="stop-color:var(--moon)" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="200" cy="120" r="95" fill="url(#glow)"/>
       <g id="rings"></g>
-      <path d="M160 112v-18a40 40 0 0 1 80 0v18" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
-      <rect x="148" y="104" width="22" height="34" rx="10" fill="var(--lav)"/>
-      <rect x="230" y="104" width="22" height="34" rx="10" fill="var(--lav)"/>
-      <rect x="152" y="108" width="8" height="26" rx="4" fill="var(--ink)" opacity=".25"/>
-      <rect x="240" y="108" width="8" height="26" rx="4" fill="var(--ink)" opacity=".25"/>
+      <g style="fill:var(--star)">
+        <circle class="tw" cx="58" cy="40" r="1.8"/><circle cx="96" cy="88" r="1.2" opacity=".7"/><circle class="tw" cx="132" cy="26" r="1.4" style="animation-delay:1.2s"/>
+        <circle cx="282" cy="34" r="1.3" opacity=".8"/><circle class="tw" cx="322" cy="78" r="1.8" style="animation-delay:.6s"/><circle cx="354" cy="30" r="1.1" opacity=".6"/>
+        <circle class="tw" cx="30" cy="120" r="1.1" style="animation-delay:2s"/><circle cx="372" cy="128" r="1.3" opacity=".7"/>
+        <path class="tw" d="M248 52l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" style="fill:var(--moon);animation-delay:.3s"/>
+      </g>
+      <mask id="cres"><rect width="400" height="200" fill="#fff"/><circle cx="217" cy="106" r="29" fill="#000"/></mask>
+      <circle cx="200" cy="118" r="33" style="fill:var(--moon)" mask="url(#cres)"/>
     </svg>
   </div>
 
   <main id="app"></main>
-  <details class="src" id="src"><summary>掲載チャンネルと調べ方</summary><div id="srcBody"></div></details>
-  <p class="note">登録者数は各集計サイトの値で、日付はそのデータの取得時点です。作風や機材は動画ごとに変わるので、診断は「最初の1本」を選ぶ目安にどうぞ。</p>
+  <a class="list" href="channels.html#random">☆ 質問なしで、今夜の1人をおまかせで選ぶ <span>→</span></a>
+  <a class="list" href="channels.html">☰ 掲載チャンネル一覧をジャンル別に見る <span>→</span></a>
+  <details class="src" id="src"><summary>データの調べ方</summary><div id="srcBody"></div></details>
+  <p class="note">データ更新日：2026年11月22日。登録者数などはYouTube Data APIで取得した時点の値です。作風や機材は動画ごとに変わるので、診断は「最初の1本」を選ぶ目安にどうぞ。</p>
 </div>
 <div class="toast" id="toast">コピーしました</div>
 
 <script>
 fetch('data.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(C=>{
-/* ================= アキネーター式エンジン =================
+/* ================= 診断エンジン =================
   各チャンネル c は f（特徴 0〜1）、lang、vt、live、subs、mic、spicy を持つ。
   質問の各選択肢は「このチャンネルならその答えをどれくらい選びそうか」(尤度 0〜1) を返す。
   答えるたびに尤度を掛け合わせ、残りの質問から「答えの分かれ方で候補が最も絞れる（期待エントロピーが最小）」ものを次に出す。 */
 
 const LABEL={ear:'耳かき',whisper:'囁き',brush:'マッサージ・ブラシ',tap:'タッピング',eat:'咀嚼音',obj:'物の音・スクイーズ',cosme:'メイク・スキンケア',cook:'料理の音',rp:'ロールプレイ',none:'ノートーク',talk:'雑談',sleep:'睡眠導入',game:'ゲーム',collab:'コラボ・両耳同時',endure:'長時間・耐久',heart:'心音・添い寝・膝枕',onoma:'オノマトペ・言葉',irl:'実写・コスプレ・手元映像',water:'水・ジェル・泡の音',onee:'お姉さん系の声',low:'低め・ダウナーな声',cute:'甘い・可愛い声'};
 const tier=c=>c.subs>=1e6?'big':c.subs>=2e5?'mid':'small';
+// 登録者数から「人気者／中堅／知る人ぞ知る」をなめらかに判定（境目の人はどちらにも少し入る）
+const sig=x=>1/(1+Math.exp(-x));
+const popM=c=>{const x=Math.log10(Math.max(c.subs||5e4,1e4)),b=sig((x-5.45)/0.1),sm=sig((5.0-x)/0.1);return [b,Math.max(0,1-b-sm),sm]};
 const hasKU=c=>c.mic.includes('KU100');
 const T=(k,q,h,[a,b,cc,d]=['大好き','まあ好き','どちらでもない','苦手'])=>({id:k,q,h,trait:k,o:[
   [a,'',c=>0.06+0.94*c.f[k]],[b,'',c=>0.35+0.65*c.f[k]],[cc,'',()=>1],[d,'',c=>1-0.88*c.f[k]]]});
 
 const Q=[
- {id:'spicy',fixed:1,q:'まず確認です。耳舐め・耳はむなど刺激強めのジャンルは？',h:'そうした回もあるチャンネル（普段は耳かき・囁きが中心の人も多い）を候補に入れるかを決めます',o:[
-   ['好き','',c=>c.spicy?1:0.55],['あってもOK','普段の配信が合えばいい',()=>1],['苦手・出さないで','',c=>c.spicy?0.001:1]]},
- {id:'sex',fixed:1,q:'配信者は女性と男性、どちらがいい？',h:'声の性別で絞り込みます。音だけのチャンネルや性別が分からない人は少しだけ残ります',o:[
+ {id:'spicy',fixed:1,at:2,q:'耳舐め・耳はむなど、刺激強めの回もあるチャンネルは？',h:'普段は耳かきや囁きが中心で、ときどきそうした回がある人も多いです',o:[
+   ['好き','',c=>c.spicy?1:0.55],['あってもOK','普段の配信が合えばいい',()=>1],['出さないでほしい','',c=>c.spicy?0.001:1]]},
+ {id:'sex',fixed:1,at:0,q:'配信者は女性と男性、どちらがいい？',h:'声の性別で絞り込みます。音だけのチャンネルや性別が分からない人は少しだけ残ります',o:[
    ['女性','',c=>({f:1,b:0.6,u:0.25,m:0.001})[c.g||'u']],['男性','女性向けボイスなど',c=>({m:1,b:0.05,u:0.25,f:0.001})[c.g||'u']],['こだわらない','',()=>1]]},
  {id:'lang',q:'聴きたいのは何語のASMR？',h:'',o:[
    ['日本語','',c=>c.lang==='ja'?1:0.04],['英語など海外','',c=>c.lang==='en'?1:0.04],['韓国語','',c=>c.lang==='ko'?1:0.04],['こだわらない','',()=>1]]},
@@ -143,8 +195,8 @@ const Q=[
    ['生配信（ライブ）','リアルタイムで一緒に',c=>0.08+0.92*c.live],['編集された動画','好きな時に再生',c=>1-0.9*c.live],['どちらでも','',()=>1]]},
  {id:'mic',q:'マイク・音質へのこだわりは？',h:'KU100は約100万円の高級ダミーヘッドマイク、3Dioは耳型のバイノーラルマイクです',o:[
    ['KU100じゃないと','',c=>hasKU(c)?1:0.12],['立体音響（バイノーラル）なら','',c=>c.mic.length?1:0.35],['気にしない','',()=>1]]},
- {id:'size',q:'チャンネルの規模は？',h:'登録者数の目安です',o:[
-   ['超人気（100万人〜）','',c=>({big:1,mid:.25,small:.05})[tier(c)]],['人気（20万〜100万人）','',c=>({big:.25,mid:1,small:.25})[tier(c)]],['これから伸びそう（5万〜20万人）','',c=>({big:.05,mid:.25,small:1})[tier(c)]],['こだわらない','',()=>1]]},
+ {id:'size',q:'どんな立ち位置の人がいい？',h:'登録者数をもとにした、ざっくりした分け方です',o:[
+   ['みんな知ってる人気者','',c=>0.1+0.9*popM(c)[0]],['安定した人気の実力派','',c=>0.1+0.9*popM(c)[1]],['これから注目の人','',c=>0.1+0.9*popM(c)[2]],['こだわらない','',()=>1]]},
  {id:'use',q:'ASMRを聴くのはどんなとき？',h:'',o:[
    ['寝る前・寝落ち用','',c=>0.1+0.9*c.f.sleep],['起きて楽しむ・見る','',c=>1-0.7*c.f.sleep],['どちらも','',()=>1]]},
  T('ear','耳かきの音は？'),
@@ -166,10 +218,6 @@ const Q=[
  T('water','水・炭酸・ジェル・泡などの音は？'),
  {id:'micType',after:'mic',when:h=>h.some(x=>x.q==='mic'&&x.o===1),q:'立体音響の中で、好きなマイクは？',h:'同じ耳かきでもマイクで聴こえ方が変わります',o:[
    ['KU100（重厚・リアル）','',c=>hasKU(c)?1:0.1],['3Dio（耳に近い・刺激強め）','',c=>c.mic.some(m=>/3Dio/.test(m))?1:0.1],['SR3D・ダミーヘッドなど','',c=>c.mic.some(m=>/SR3D|ダミー/.test(m))?1:0.12],['こだわらない','',()=>1]]},
- {id:'sizeMid',after:'size',when:h=>h.some(x=>x.q==='size'&&x.o===1),q:'人気（20万〜100万人）の中だと、どのくらい？',h:'',o:[
-   ['50万〜100万人','',c=>c.subs>=5e5&&c.subs<1e6?1:0.08],['20万〜50万人','',c=>c.subs>=2e5&&c.subs<5e5?1:0.08],['どちらでも','',()=>1]]},
- {id:'sizeSmall',after:'size',when:h=>h.some(x=>x.q==='size'&&x.o===2),q:'5万〜20万人の中だと、どのくらい？',h:'',o:[
-   ['10万〜20万人','',c=>c.subs>=1e5&&c.subs<2e5?1:0.08],['5万〜10万人','',c=>c.subs<1e5?1:0.08],['どちらでも','',()=>1]]},
  {id:'freq',q:'配信・投稿の頻度はどのくらいの人がいい？',h:'',o:[
    ['ほぼ毎日','',c=>c.pw>=5?1:c.pw>=2.5?0.3:0.05],['週に2〜4回','',c=>c.pw>=2&&c.pw<5?1:0.18],['週1回くらい','',c=>c.pw>=0.8&&c.pw<2?1:0.18],['たまに（週1未満）','',c=>c.pw<0.8?1:c.pw<1.5?0.3:0.05],['こだわらない','',()=>1]]},
  {id:'live2',after:'live',q:'生配信の頻度はどのくらいがいい？',h:'',o:[
@@ -179,34 +227,46 @@ const Q=[
 ];
 const TB=(c,i)=>c.tb?0.08+0.92*c.tb[i]:0.3;
 const QI=Object.fromEntries(Q.map(q=>[q.id,q]));
-const MIN_Q=8,MAX_Q=20;
+// 診断タイプ：さくっと（5〜10問で必ず結果）／じっくり（絞れるまで）
+const MODES={quick:{min:5,max:10,add:0,label:'さくっと'},deep:{min:8,max:20,add:3,label:'じっくり'}};
+let mode=null;
+const M=()=>MODES[mode||'deep'];
+const MAX_Q=20;
 
 /* ---------- 状態 ---------- */
-const VER='asmr-shindan-v9';
+const VER='asmr-shindan-v10';
 let extra=0,hist=[],rejected=[],filter='all',showAll=false;
-try{const s=JSON.parse(localStorage.getItem(VER)||'null');if(s&&Array.isArray(s.h)){hist=s.h.filter(h=>QI[h.q]);rejected=s.r||[]}}catch(e){}
-const resetAll=()=>{hist=[];rejected=[];extra=0;showAll=false;filter='all';save();render();window.scrollTo({top:0,behavior:'smooth'})};
-const save=()=>{try{localStorage.setItem(VER,JSON.stringify({h:hist,r:rejected}))}catch(e){}};
+try{const s=JSON.parse(localStorage.getItem(VER)||'null');if(s&&Array.isArray(s.h)){hist=s.h.filter(h=>QI[h.q]);rejected=s.r||[];mode=MODES[s.m]?s.m:null}}catch(e){}
+const resetAll=()=>{hist=[];rejected=[];extra=0;mode=null;showAll=false;filter='all';save();render();window.scrollTo({top:0,behavior:'smooth'})};
+const save=()=>{try{localStorage.setItem(VER,JSON.stringify({h:hist,r:rejected,m:mode}))}catch(e){}};
 const app=document.getElementById('app'),rings=document.getElementById('rings');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const base=()=>location.href.split('#')[0];
+const shareUrl=c=>base()+'#r='+encodeURIComponent(c.name);
+// 診断の履歴（見ている人のブラウザに保存）
+let HIST=[];try{HIST=JSON.parse(localStorage.getItem('asmr-history')||'[]')}catch(e){}
+const addHist=(name,conf)=>{const now=Date.now(),last=HIST[0];if(last&&last.n===name&&now-last.t<6e5)return;HIST.unshift({n:name,t:now,c:conf,m:mode||'deep'});HIST=HIST.slice(0,20);try{localStorage.setItem('asmr-history',JSON.stringify(HIST))}catch(e){}};
 const yt=c=>c.url||'https://www.youtube.com/results?search_query='+encodeURIComponent(c.name+' ASMR');
 const fmt=n=>!n?'—':n>=10000?(n/10000).toFixed(n>=1e6?0:1).replace(/\.0$/,'')+'万人':n.toLocaleString()+'人';
 
 /* ---------- 計算 ---------- */
+// 答え間違い・迷いに強くするため、フィルター以外の質問は尤度を少しだけ底上げする
+const LAM=0.1,HARD=new Set(['spicy','sex']);
+const lik=(q,o,c)=>{const v=q.o[o][2](c);return HARD.has(q.id)?v:LAM+(1-LAM)*v};
 function weights(h=hist){
   const w=C.map(()=>1);
-  h.forEach(({q,o})=>{const f=QI[q].o[o][2];C.forEach((c,i)=>{w[i]*=f(c)})});
+  h.forEach(({q,o})=>{const qq=QI[q];C.forEach((c,i)=>{w[i]*=lik(qq,o,c)})});
   rejected.forEach(n=>{const i=C.findIndex(c=>c.name===n);if(i>=0)w[i]=0});
   const s=w.reduce((a,b)=>a+b,0)||1;return w.map(x=>x/s);
 }
 const H=p=>{let h=0;for(const x of p)if(x>1e-12)h-=x*Math.log(x);return h};
 function bestQuestion(w){
   const asked=new Set(hist.map(h=>h.q));
-  const fixed=Q.find(q=>q.fixed&&!asked.has(q.id));if(fixed)return {q:fixed,gain:9};
+  const fixed=Q.find(q=>q.fixed&&!asked.has(q.id)&&hist.length>=q.at);if(fixed)return {q:fixed,gain:9};
   const H0=H(w);let best=null;
   for(const q of Q){
-    if(asked.has(q.id)||(q.after&&!asked.has(q.after))||(q.when&&!q.when(hist)))continue;
-    const L=C.map(c=>q.o.map(o=>o[2](c)));          // 尤度
+    if(q.fixed||asked.has(q.id)||(q.after&&!asked.has(q.after))||(q.when&&!q.when(hist)))continue;
+    const L=C.map(c=>q.o.map((o,k)=>lik(q,k,c)));          // 尤度
     const P=L.map(r=>{const s=r.reduce((a,b)=>a+b,0);return r.map(x=>x/s)}); // チャンネルごとの答えの分布
     let exp=0;
     for(let k=0;k<q.o.length;k++){
@@ -223,19 +283,59 @@ const effN=w=>Math.exp(H(w));
 function drawRings(n,on){let h='';for(let k=0;k<n;k++)h+=`<circle class="ring ${on?'on':''}" cx="200" cy="120" r="${46+k*11}" stroke-width="${on?2:1.5}" opacity="${on?0:.22+k*.06}" style="animation-delay:${k*.4}s"/>`;rings.innerHTML=h}
 
 /* ---------- 質問画面 ---------- */
+function renderShared(c){
+  drawRings(6,true);
+  app.classList.remove('fade');void app.offsetWidth;app.classList.add('fade');
+  const v=pickVideo(c);
+  app.innerHTML=`<section class="top">
+    <span class="badge">シェアされた推しは…</span>
+    <div class="row"><h2>${esc(c.name)} ${favBtn(c)}</h2></div>
+    <div class="tags">${vtTag(c)}${micTags(c)}</div>
+    <div class="facts"><span>${subsLine(c)}</span>${c.tb?`<span>${timeLine(c)}</span>`:''}</div>
+    <p style="margin:12px 0 0">${esc(c.desc)}</p>
+    ${v?`<a class="pick" href="${vUrl(v)}" target="_blank" rel="noopener"><span class="pk">▶ まずはこの1本から</span><b>${esc(v.title)}</b><small>${v.date}・${v.live?'生配信のアーカイブ':'動画'}</small></a>`:''}
+    <div class="acts"><a class="go" href="${yt(c)}" target="_blank" rel="noopener">チャンネルを見る ↗</a></div>
+    ${simBlock(c,null,!c.spicy)}
+  </section>
+  <div class="nav" style="justify-content:center"><button class="btn pri" id="mine">☾ 自分の推しも診断する</button></div>`;
+  document.getElementById('mine').onclick=()=>{history.replaceState(null,'',base());resetAll()};
+}
+function histBlock(){
+  if(!HIST.length)return '';
+  const d=t=>{const x=new Date(t);return `${x.getMonth()+1}/${x.getDate()}`};
+  const rows=HIST.slice(0,5).map(h=>{const c=C.find(x=>x.name===h.n);return c?`<li><a href="${yt(c)}" target="_blank" rel="noopener">${esc(c.name)}</a><small>${d(h.t)}・${MODES[h.m]?MODES[h.m].label:''}</small></li>`:''}).join('');
+  return `<details class="hist"><summary>これまでの診断結果（${HIST.length}件）</summary><ul>${rows}</ul><button class="reset" id="clearHist">履歴を消す</button></details>`;
+}
+function renderStart(){
+  drawRings(1,false);
+  app.classList.remove('fade');void app.offsetWidth;app.classList.add('fade');
+  app.innerHTML=`<h2 class="q">どちらで診断する？</h2><p class="hint">あとから質問を続けることもできます</p>
+  <div class="opts modes">
+    <button class="opt" data-m="quick"><b>☾ さくっと診断</b><span>5〜10問で、必ず結果を出します。今夜すぐ聴きたい人に</span></button>
+    <button class="opt" data-m="deep"><b>✦ じっくり診断</b><span>候補が絞れるまで質問します（最大20問ほど）。ぴったりの推しを探したい人に</span></button>
+  </div>${histBlock()}`;
+  app.querySelectorAll('.opt[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;save();render()});
+  const ch=document.getElementById('clearHist');if(ch)ch.onclick=()=>{HIST=[];try{localStorage.removeItem('asmr-history')}catch(e){}renderStart()};
+}
+let _shared=(()=>{try{const r=decodeURIComponent((location.hash.match(/^#r=(.+)$/)||[])[1]||'');return r&&C.find(c=>c.name===r)}catch(e){return null}})();
+window.addEventListener('hashchange',()=>{try{const r=decodeURIComponent((location.hash.match(/^#r=(.+)$/)||[])[1]||''),c=r&&C.find(x=>x.name===r);if(c){renderShared(c);window.scrollTo({top:0})}}catch(e){}});
 function render(){
+  if(_shared){const c=_shared;_shared=null;return renderShared(c)}
+  if(!mode&&!hist.length)return renderStart();
   const w=weights(),n=effN(w),top=Math.max(...w);
   const nb=bestQuestion(w);
-  const done=hist.length>=MAX_Q+3*rejected.length||!nb||(hist.length>=Math.max(MIN_Q,extra)&&(top>=0.5||n<=2.2))||(hist.length>=Math.max(MIN_Q,extra)&&nb.gain<0.015);
+  const m=M(),maxQ=Math.min(MAX_Q+3*rejected.length,m.max+m.add*rejected.length),lim=Math.max(m.min,extra);
+  const done=hist.length>=maxQ||!nb||(hist.length>=lim&&(top>=0.5||n<=2.2))||(hist.length>=lim&&nb.gain<0.015);
   if(done)return (rejected.length>=3||!nb)?renderResult():renderGuess(w);
   const q=nb.q;drawRings(Math.min(8,Math.max(1,Math.round(9-Math.log2(n+1)))),false);
   const pct=Math.round(100*(1-Math.log(n)/Math.log(C.length)));
+  app.classList.remove('fade');void app.offsetWidth;app.classList.add('fade');
   app.innerHTML=`<div class="bar"><i style="width:${Math.max(4,pct)}%"></i></div>
-  <div class="meta"><span>質問 ${hist.length+1}</span><span>残りの候補 <b>約${Math.max(1,Math.round(n))}</b> / ${C.length} チャンネル</span></div>
+  <div class="meta"><span>質問 ${hist.length+1}${mode==='quick'?` / ${maxQ}`:''}</span><span>残りの候補 <b>約${Math.max(1,Math.round(n))}</b> / ${C.length} チャンネル</span></div>
   <h2 class="q">${q.q}</h2><p class="hint">${q.h||''}</p>
   <div class="opts">${q.o.map((o,k)=>`<button class="opt" data-k="${k}"><b>${o[0]}</b>${o[1]?`<span>${o[1]}</span>`:''}</button>`).join('')}</div>
   <div class="nav"><button class="btn" id="back" ${hist.length?'':'disabled'}>← ひとつ戻る</button>
-  ${hist.length>=4?'<button class="btn" id="now">ここで結果を見る</button>':''}</div>
+  ${hist.length>=3||(hist.length>=2&&n<=6)?`<button class="btn" id="now">ここで結果を見る<small style="font-weight:500;opacity:.75;margin-left:6px">候補 約${Math.max(1,Math.round(n))}</small></button>`:''}</div>
   ${hist.length?'<div class="resetrow"><button class="reset" id="reset">↺ 最初からやり直す</button></div>':''}`;
   app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{hist.push({q:q.id,o:+b.dataset.k});save();render()});
   document.getElementById('back').onclick=()=>{hist.pop();save();render()};
@@ -248,6 +348,7 @@ function renderGuess(w){
   const i=w.indexOf(Math.max(...w)),c=C[i];
   if(hist.some(h=>h.q==='spicy'&&h.o===2)&&c.spicy){rejected.push(c.name);return render()}
   drawRings(6,false);
+  app.classList.remove('fade');void app.offsetWidth;app.classList.add('fade');
   app.innerHTML=`<div class="bar"><i style="width:92%"></i></div>
   <div class="meta"><span>${hist.length}問目まで回答</span><span>${rejected.length?`${rejected.length+1}回目の予想`:'予想'}</span></div>
   <h2 class="q">あなたの推しになりそうなのは…</h2>
@@ -258,9 +359,9 @@ function renderGuess(w){
     <p style="margin:12px 0 0">${esc(c.desc)}</p>
     <a class="go" href="${yt(c)}" target="_blank" rel="noopener">チャンネルを見てみる ↗</a>
   </section>
-  <p class="hint" style="margin-top:16px">聴いてみて合いそうなら「この人！」、違えば質問を続けてもっと絞り込みます</p>
+  <p class="hint" style="margin-top:16px">${mode==='quick'&&hist.length>=M().max?'聴いてみて合いそうなら「この人！」、違えば次の候補を出します（3回まで）':'聴いてみて合いそうなら「この人！」、違えば質問を続けてもっと絞り込みます'}</p>
   <div class="nav"><button class="btn" id="back">← ひとつ戻る</button>
-  <button class="btn" id="no">ちがう、続ける</button><button class="btn pri" id="yes">この人！結果を見る</button></div>
+  <button class="btn" id="no">${mode==='quick'&&hist.length>=M().max?'ちがう、次の候補へ':'ちがう、続ける'}</button><button class="btn pri" id="yes">この人！結果を見る</button></div>
   <div class="resetrow"><button class="reset" id="reset">↺ 最初からやり直す</button></div>`;
   document.getElementById('yes').onclick=()=>renderResult();
   document.getElementById('no').onclick=()=>{rejected.push(c.name);save();continueAfterReject()};
@@ -269,7 +370,7 @@ function renderGuess(w){
 }
 function continueAfterReject(){
   // 外したあとは最低3問追加で聞いてから再予想
-  extra=Math.max(extra,hist.length+3);render();
+  extra=Math.max(extra,hist.length+M().add);render();
 }
 
 /* ---------- 結果画面 ---------- */
@@ -284,10 +385,8 @@ function reasons(c){
     if(q==='mic'&&o<2&&(o===0?hasKU(c):c.mic.length))out.push(o===0?'KU100を使用':'立体音響');
     if(q==='voice'&&o===1&&c.f.none>=0.5)out.push('ノートーク');
     if(q==='freq'&&o<4&&[c.pw>=5,c.pw>=2&&c.pw<5,c.pw>=0.8&&c.pw<2,c.pw<0.8][o])out.push(['ほぼ毎日配信','週2〜4回のペース','週1回くらいのペース','マイペースな更新'][o]);
-    if(q==='sizeMid'&&o<2&&[c.subs>=5e5&&c.subs<1e6,c.subs>=2e5&&c.subs<5e5][o])out.push(['登録者50万〜100万人','登録者20万〜50万人'][o]);
-    if(q==='sizeSmall'&&o<2&&[c.subs>=1e5&&c.subs<2e5,c.subs<1e5][o])out.push(['登録者10万〜20万人','登録者5万〜10万人'][o]);
     if(q==='micType'&&o<3&&[hasKU(c),c.mic.some(m=>/3Dio/.test(m)),c.mic.some(m=>/SR3D|ダミー/.test(m))][o])out.push(['KU100','3Dio','SR3D・ダミーヘッド'][o]+'を使用');
-    if(q==='size'&&o<3&&['big','mid','small'][o]===tier(c))out.push(['登録者100万人以上','登録者20万〜100万人','登録者5万〜20万人'][o]);
+    if(q==='size'&&o<3&&popM(c)[o]>=0.6)out.push(['みんな知ってる人気者','安定した人気の実力派','これから注目の人'][o]);
     if(q==='time'&&o<4&&c.tb&&c.tb[o]>=0.4)out.push(['朝・昼','夕方〜夜早め','夜21〜24時','深夜0時以降'][o]+'によく配信');
     if(q==='sex'&&o<2&&c.g===['f','m'][o])out.push(['女性','男性'][o]+'の配信者');
     if(q==='vtype'&&o<3){const k=['cute','onee','low'][o];if(c.f[k]>=0.5)out.push(LABEL[k])}
@@ -299,10 +398,41 @@ const vtTag=c=>(c.g==='m'?'<span>男性</span>':'')+(c.vt?`<span class="vt">VTub
 const subsLine=c=>(c.subs?`登録者 <b>${fmt(c.subs)}</b>`:`登録者数 <b>非公開</b>`)+(c.last?`・最終配信 ${c.last}`:'');
 const timeLine=c=>c.tb?`よく配信する時間帯：<b>${c.th}時ごろ</b>`:'';
 const featTags=c=>Object.keys(LABEL).filter(k=>c.f[k]>=0.5&&!(['onee','low','cute'].includes(k)&&c.f[k]<0.6)).map(k=>LABEL[k]);
+// お気に入り（一覧ページと共通、見ている人のブラウザに保存）
+let FAV=new Set();try{FAV=new Set(JSON.parse(localStorage.getItem('asmr-fav')||'[]'))}catch(e){}
+const saveFav=()=>{try{localStorage.setItem('asmr-fav',JSON.stringify([...FAV]))}catch(e){}};
+const favBtn=c=>`<button class="fav" data-name="${esc(c.name)}" aria-pressed="${FAV.has(c.name)}" aria-label="${esc(c.name)}をお気に入り${FAV.has(c.name)?'から外す':'に追加'}">${FAV.has(c.name)?'★':'☆'}</button>`;
+document.addEventListener('click',e=>{const b=e.target.closest('.fav');if(!b)return;const n=b.dataset.name;FAV.has(n)?FAV.delete(n):FAV.add(n);saveFav();
+  document.querySelectorAll('.fav').forEach(x=>{if(x.dataset.name===n){const on=FAV.has(n);x.textContent=on?'★':'☆';x.setAttribute('aria-pressed',on);x.setAttribute('aria-label',n+'をお気に入り'+(on?'から外す':'に追加'))}});
+  const fl=document.getElementById('favLink');if(fl)fl.textContent=`★ お気に入り（${FAV.size}）を一覧で見る`;});
+// おすすめの1本：答えに合う最近の動画を選ぶ
+function pickVideo(c){
+  if(!c.v||!c.v.length)return null;
+  const like={},why=[];let wantLive=null,sleep=0;
+  hist.forEach(({q,o})=>{const qq=QI[q];
+    if(qq.trait){like[qq.trait]=o===0?2:o===1?1:o===3?-3:0}
+    if(q==='use')sleep=o===0?1:o===1?-1:0;
+    if(q==='live')wantLive=o===0?1:o===1?0:null});
+  let best=null,bs=-1e9;
+  c.v.forEach(([id,title,date,live,keys],i)=>{
+    let sc=-0.05*i;keys.forEach(k=>{if(like[k])sc+=like[k]});
+    if(sleep&&keys.includes('sleep'))sc+=sleep;
+    if(wantLive!==null&&live===wantLive)sc+=0.5;
+    if(sc>bs){bs=sc;best={id,title,date,live,keys}}});
+  best.match=best.keys.filter(k=>like[k]>0&&LABEL[k]).map(k=>LABEL[k]);
+  return best;
+}
+const vUrl=v=>'https://www.youtube.com/watch?v='+encodeURIComponent(v.id);
+function simBlock(c,hideG,hideS){
+  const ids=(c.sim||[]).map(j=>C[j]).filter(x=>x&&!(hideS&&x.spicy)&&!(hideG&&(x.g===hideG||(hideG==='f'&&x.g==='b'))));
+  if(!ids.length)return '';
+  return `<h4 style="margin-top:22px">この人が好きならこちらも</h4><div class="sims">${ids.map(x=>{const v=pickVideo(x);return `<div class="sim"><div class="row"><b>${esc(x.name)}</b>${favBtn(x)}</div><div class="tags">${vtTag(x)}${micTags(x)}</div>${v?`<a class="pv" href="${vUrl(v)}" target="_blank" rel="noopener"><span>▶ ${esc(v.title)}</span></a>`:''}<a href="${yt(x)}" target="_blank" rel="noopener">チャンネルを見る ↗</a></div>`}).join('')}</div>`;
+}
 function card(x){
-  return `<div class="run"><div class="row"><h3>${esc(x.c.name)}</h3><span class="m">${x.p}%</span></div>
+  return `<div class="run"><div class="row"><h3>${esc(x.c.name)}</h3><span class="m">${x.p}%</span>${favBtn(x.c)}</div>
   <div class="tags">${vtTag(x.c)}${micTags(x.c)}</div><p>${esc(x.c.desc)}</p><p>${subsLine(x.c)}${x.c.tb?'・'+timeLine(x.c):''}</p>
-  <a href="${yt(x.c)}" target="_blank" rel="noopener">YouTubeで見る ↗</a></div>`;
+  ${(v=>v?`<a class="pv" href="${vUrl(v)}" target="_blank" rel="noopener"><span>▶ ${esc(v.title)}</span></a>`:'')(pickVideo(x.c))}
+  <a href="${yt(x.c)}" target="_blank" rel="noopener">チャンネルを見る ↗</a></div>`;
 }
 
 function renderResult(){
@@ -310,22 +440,26 @@ function renderResult(){
   const max=Math.max(...w);
   const r=C.map((c,i)=>({c,w:w[i],p:Math.round(100*Math.sqrt(w[i]/max))})).filter(x=>!(hideS&&x.c.spicy)&&!(hideG&&(x.c.g===hideG||(hideG==='f'&&x.c.g==='b')))).sort((a,b)=>b.w-a.w);
   const t=r.find(x=>!rejected.includes(x.c.name))||r[0],conf=Math.round(100*t.w/r.reduce((a,b)=>a+b.w,0));
-  drawRings(6,true);
+  drawRings(6,true);addHist(t.c.name,conf);
   const vtTop=r.filter(x=>x.c.vt&&x!==t).slice(0,3),realTop=r.filter(x=>!x.c.vt&&x!==t).slice(0,3);
   const why=reasons(t.c),inf=featTags(t.c);
+  app.classList.remove('fade');void app.offsetWidth;app.classList.add('fade');
   app.innerHTML=`<div class="bar"><i style="width:100%"></i></div>
   <div class="meta"><span>${hist.length}問で診断しました</span><span>${C.length}チャンネルから絞り込み</span></div>
   <section class="top">
-    <span class="badge">${rejected.length?'予想を'+rejected.length+'回外したあとの':''}あなたの推しは…</span>
-    <div class="row"><h2>${esc(t.c.name)}</h2><div class="pct" title="確信度">${conf}%</div></div>
+    <span class="badge">${conf<20?'今の答えでいちばん近いのは…':(rejected.length?'予想を'+rejected.length+'回外したあとの':'')+'あなたの推しは…'}</span>
+    <div class="row"><h2>${esc(t.c.name)} ${favBtn(t.c)}</h2><div class="pct" title="確信度">${conf}%</div></div>
     <p class="h4sub" style="margin:0">確信度：残った候補の中でこのチャンネルが当てはまる確率</p>
+    ${conf<20?`<p class="h4sub" style="margin:6px 0 0">まだ候補が多い段階の結果です。<button class="reset" id="cont" style="padding:4px 2px;min-height:0">質問を続けると</button>もっと絞り込めます。</p>`:''}
     <div class="tags">${vtTag(t.c)}${micTags(t.c)}</div>
     <div class="facts"><span>${subsLine(t.c)}</span>${t.c.tb?`<span>${timeLine(t.c)}</span>`:''}</div>
     <p style="margin:12px 0 0">${esc(t.c.desc)}</p>
     ${why.length?`<ul class="why">${why.map(h=>`<li>「${h}」があなたの答えと一致</li>`).join('')}</ul>`:''}
     ${inf.length?`<div class="infer"><b>最近の配信タイトルから見た特徴：</b>${inf.join('・')}</div>`:''}
-    <div class="first"><b>最初の1本におすすめ：</b>${esc(t.c.first)}</div>
-    <a class="go" href="${yt(t.c)}" target="_blank" rel="noopener">YouTubeで見る ↗</a>
+    ${(v=>v?`<a class="pick" href="${vUrl(v)}" target="_blank" rel="noopener"><span class="pk">▶ まずはこの1本から</span><b>${esc(v.title)}</b><small>${v.date}・${v.live?'生配信のアーカイブ':'動画'}${v.match.length?`・あなたの好きな「${v.match.slice(0,3).join('・')}」入り`:''}</small></a>`:`<div class="first"><b>最初の1本におすすめ：</b>${esc(t.c.first)}</div>`)(pickVideo(t.c))}
+    <div class="acts"><a class="go" href="${yt(t.c)}" target="_blank" rel="noopener">チャンネルを見る ↗</a>
+    <a class="go share" href="https://x.com/intent/post?text=${encodeURIComponent(`今夜の推しASMRで診断したら「${t.c.name}」でした（${hist.length}問・確信度${conf}%）\n#今夜の推しASMR`)}&url=${encodeURIComponent(shareUrl(t.c))}" target="_blank" rel="noopener">𝕏 でシェア</a></div>
+    ${simBlock(t.c,hideG,hideS)}
   </section>
   ${vtTop.length?`<h4>VTuber部門の次点</h4><div class="runners">${vtTop.map(card).join('')}</div>`:''}
   ${realTop.length?`<h4>実写・その他の次点</h4><div class="runners">${realTop.map(card).join('')}</div>`:''}
@@ -334,6 +468,7 @@ function renderResult(){
     <button class="chip" data-f="all">すべて</button><button class="chip" data-f="vt">VTuberのみ</button>
     <button class="chip" data-f="ku">KU100使用</button><button class="chip" data-f="real">実写のみ</button></div>
   <div class="all" id="all"></div>
+  <a class="list" id="favLink" href="channels.html#fav">★ お気に入り（${FAV.size}）を一覧で見る <span>→</span></a>
   <div class="nav"><button class="btn" id="back2">← 最後の質問に戻る</button></div>
   <div class="dock"><button class="btn" id="redo">↻ もう一度診断する</button><button class="btn pri" id="copy">結果をコピー</button></div>`;
   const drawAll=()=>{
@@ -346,10 +481,11 @@ function renderResult(){
   };
   drawAll();
   app.querySelectorAll('.chip[data-f]').forEach(b=>b.onclick=()=>{filter=b.dataset.f;showAll=false;drawAll()});
+  const ct=document.getElementById('cont');if(ct)ct.onclick=()=>{if(mode==='quick')mode='deep';extra=hist.length+3;save();render();window.scrollTo({top:0,behavior:'smooth'})};
   document.getElementById('back2').onclick=()=>{rejected=[];extra=0;hist.pop();save();render()};
   document.getElementById('redo').onclick=resetAll;
   document.getElementById('copy').onclick=async()=>{
-    const txt=`ASMR推し診断（${hist.length}問）の結果：${t.c.name}（確信度${conf}%）\n次点：${r.slice(1,4).map(x=>x.c.name).join('、')}`;
+    const txt=`今夜の推しASMR（${hist.length}問）の結果：${t.c.name}（確信度${conf}%）\n次点：${r.slice(1,4).map(x=>x.c.name).join('、')}\n${shareUrl(t.c)}`;
     const toast=document.getElementById('toast');
     try{await navigator.clipboard.writeText(txt);toast.textContent='コピーしました'}catch(e){toast.textContent='コピーできませんでした'}
     toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800);
@@ -358,14 +494,26 @@ function renderResult(){
 }
 
 /* ---------- 掲載チャンネル表 ---------- */
+(function tick(){const d=new Date(),h=d.getHours(),p=n=>String(n).padStart(2,'0'),t=document.getElementById('clockTime'),m=document.getElementById('clockMsg');
+  if(t)t.innerHTML=p(h)+'<i class="colon">:</i>'+p(d.getMinutes())+'<small>'+p(d.getSeconds())+'</small>';
+  if(m)m.textContent=h<5?'夜ふかしさん、そろそろおやすみ':h<17?'今夜のために、先に選んでおこう':h<21?'おやすみ前の準備に、今夜の1本を':'おやすみまで、あと少し';
+  setTimeout(tick,1000-d.getMilliseconds()+5)})();
 document.getElementById('subline').textContent=`質問に答えるたびに、${C.length}のASMRチャンネル（VTuber ${C.filter(c=>c.vt).length}人を含む）から候補を絞り込みます`;
-document.getElementById('srcBody').innerHTML=`<p>YouTube Data APIで2026年11月22日に取得したデータです。この会話で調べたチャンネルに加え、「ASMR KU100」「ASMR 耳かき 睡眠導入」など20個の言葉で半年以内の動画を検索し、投稿者を自動で集めました。掲載条件は<b>登録者5万人以上</b>・<b>半年以内に配信あり</b>・<b>直近50本のうちASMRのタイトルが6本以上</b>です。</p>
-<p>質問はアキネーターと同じ考え方で選んでいます。各チャンネルの特徴（言語、VTuberかどうか、生配信の割合と時間帯、配信頻度、機材、登録者数、最近50本のタイトル・概要欄・タグに出てくる音の種類など）を数値にし、答えによって候補が最も均等に分かれる質問を毎回計算して出します。候補が十分に絞れたら（または${MAX_Q}問で）結果を出します。自動で集めたチャンネルの紹介文はタイトルから機械的に作ったものです。</p>
-<table><thead><tr><th>チャンネル</th><th>区分</th><th>機材</th><th class="num">登録者</th></tr></thead><tbody>${C.map(c=>`<tr><td>${esc(c.name)}</td><td>${c.vt?'VTuber':'実写ほか'}<br>最終 ${c.last}</td><td>${esc(c.mic.join(', ')||'—')}</td><td class="num">${fmt(c.subs)}</td></tr>`).join('')}</tbody></table>`;
+document.getElementById('srcBody').innerHTML=`<p>YouTube Data APIで取得したデータです。この会話で調べたチャンネルに加え、「ASMR KU100」「ASMR 耳かき 睡眠導入」など20個の言葉で半年以内の動画を検索し、投稿者を自動で集めました。掲載条件は<b>登録者5万人以上</b>・<b>半年以内に配信あり</b>・<b>直近50本のうちASMRのタイトルが6本以上</b>です。</p>
+<p>質問は「20の質問」ゲームと同じ考え方で選んでいます。各チャンネルの特徴（言語、VTuberかどうか、生配信の割合と時間帯、配信頻度、機材、登録者数、最近50本のタイトル・概要欄・タグに出てくる音の種類など）を数値にし、答えによって候補が最も均等に分かれる質問を毎回計算して出します。候補が十分に絞れたら（または${MAX_Q}問で）結果を出します。自動で集めたチャンネルの紹介文はタイトルから機械的に作ったものです。</p>
+<p>データ更新日：2026年11月22日。チャンネルごとの詳しい情報は<a href="channels.html">掲載チャンネル一覧</a>で見られます。</p>`;
 
 render();
 }).catch(err=>{document.getElementById('app').innerHTML='<p style="padding:24px">データを読み込めませんでした。ページを再読み込みしてください。（'+err.message+'）</p>'});
 
+</script>
+<script>
+(function(){const b=document.getElementById('nightBtn');if(!b)return;
+  const on=()=>document.documentElement.hasAttribute('data-night');
+  const set=v=>{v?document.documentElement.setAttribute('data-night',''):document.documentElement.removeAttribute('data-night');try{localStorage.setItem('asmr-night',v?'1':'0')}catch(e){}label()};
+  const label=()=>{b.textContent=on()?'☀ 元の明るさ':'☾ おやすみモード';b.setAttribute('aria-pressed',on());
+    let chosen=null;try{chosen=localStorage.getItem('asmr-night')}catch(e){}const h=new Date().getHours();b.classList.toggle('hint',!on()&&chosen===null&&(h>=21||h<5))};
+  b.addEventListener('click',()=>set(!on()));label();})();
 </script>
 </body>
 </html>

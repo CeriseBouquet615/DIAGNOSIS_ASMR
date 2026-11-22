@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>掲載チャンネル一覧｜今夜の推しASMR</title>
+<meta name="description" content="今夜の推しASMRに掲載しているASMRチャンネルを、耳かき・囁き・咀嚼音などジャンル別にまとめた一覧">
+<meta name="theme-color" content="#0c1626">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="今夜の推しASMR">
+<meta property="og:title" content="掲載チャンネル一覧｜今夜の推しASMR">
+<meta property="og:description" content="耳かき・囁き・咀嚼音など、ジャンル別にASMRチャンネルを探せます。">
+<meta property="og:url" content="https://cerisebouquet615.github.io/DIAGNOSIS_ASMR/channels.html">
+<meta property="og:image" content="https://cerisebouquet615.github.io/DIAGNOSIS_ASMR/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<script>try{if(localStorage.getItem("asmr-night")==="1")document.documentElement.setAttribute("data-night","")}catch(e){}</script>
+<style>
+:root{color-scheme:dark;--moon:#f3dca0;--star:#fff;--bg:#0c1626;--bg2:#122036;--card:#15263e;--ink:#e3edf8;--mute:#93a9c6;--lav:#8cc8d8;--acc:#f3dca0;--line:#24395a;--mint:#9be0c6;--on:#0c1626}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg) radial-gradient(120% 40% at 50% -10%,#1a2d4d 0%,transparent 60%) no-repeat;color:var(--ink);font:16px/1.6 "Zen Maru Gothic",system-ui,sans-serif;overflow-x:clip;min-height:100vh}
+.wrap{max-width:960px;margin:0 auto;padding:clamp(20px,4vw,44px) max(4vw,16px) 64px}
+a{color:var(--lav)}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;text-decoration:none;color:var(--mute);min-height:40px}
+.back:hover{color:var(--ink)}
+h1{font-size:clamp(24px,4.6vw,36px);line-height:1.15;margin:4px 0 0;font-weight:900}
+.sub{color:var(--mute);margin:6px 0 0;font-size:15px}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--acc);color:var(--on);font-weight:700;text-decoration:none;border-radius:999px;padding:10px 20px;min-height:44px}
+.tools{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);margin:22px calc(-1*max(4vw,16px)) 0;padding:12px max(4vw,16px) 10px;border-bottom:1px solid var(--line)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=search]{font:inherit;flex:1 1 220px;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:8px 16px;min-height:44px}
+input[type=search]:focus{outline:none;border-color:var(--lav)}
+select{font:inherit;font-size:14px;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:8px 12px;min-height:44px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:thin}
+.chip{flex:none;font:inherit;font-size:14px;white-space:nowrap;border:2px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:5px 13px;min-height:38px;cursor:pointer}
+.chip small{color:var(--mute);margin-left:4px}
+.chip[aria-pressed=true]{border-color:var(--acc);background:var(--bg2)}
+.chip:focus-visible,select:focus-visible,.toggle:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.toggle{font:inherit;font-size:13px;border:2px solid var(--line);background:transparent;color:var(--mute);border-radius:999px;padding:4px 11px;min-height:36px;cursor:pointer}
+.toggle[aria-pressed=true]{color:var(--ink);border-color:var(--lav)}
+.count{color:var(--mute);font-size:14px;margin:16px 0 0}
+section{margin-top:28px}
+section h2{font-size:21px;margin:0;display:flex;align-items:baseline;gap:10px}
+section h2 small{font-size:14px;color:var(--mute);font-weight:500}
+.gdesc{color:var(--mute);font-size:14px;margin:2px 0 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:12px;margin-top:12px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.card h3{margin:0;font-size:18px;line-height:1.3}
+.facts{color:var(--mute);font-size:13.5px;margin:0}
+.facts b{color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tags span{background:var(--bg2);color:var(--lav);border-radius:999px;padding:2px 9px;font-size:12.5px}
+.tags span.mic{color:var(--mint);border:1px solid var(--mint)}
+.tags span.vt{color:var(--acc);border:1px solid var(--acc)}
+.card p.d{margin:0;font-size:14px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card a.yt{margin-top:auto;font-size:14px;padding-top:4px}
+.empty{color:var(--mute);margin-top:30px}
+details.more{font-size:13.5px}details.more summary{cursor:pointer;color:var(--lav);min-height:36px;display:flex;align-items:center}
+details.more h4{margin:10px 0 4px;font-size:13px;color:var(--mute);font-weight:500}
+.bars{display:grid;grid-template-columns:auto 1fr auto;gap:4px 8px;align-items:center}
+.bars i{display:block;height:8px;border-radius:6px;background:var(--lav)}.bars .tr{background:var(--line);border-radius:6px;overflow:hidden}
+.bars i.now{background:var(--acc)}.bars span.n{color:var(--mute);text-align:right;font-variant-numeric:tabular-nums}
+.vl{list-style:none;margin:0;padding:0;display:grid;gap:4px}.vl a{color:var(--ink);text-decoration:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.vl a:hover{color:var(--lav)}.vl small{color:var(--mute)}
+.simname{font:inherit;font-size:13px;background:var(--bg2);color:var(--lav);border:1px solid var(--line);border-radius:999px;padding:4px 11px;min-height:34px;cursor:pointer}.simname:hover{border-color:var(--lav)}
+.fav{flex:none;font:inherit;font-size:20px;line-height:1;background:none;border:none;color:var(--mute);cursor:pointer;padding:6px;min-width:40px;min-height:40px;border-radius:999px}
+.fav[aria-pressed=true]{color:var(--acc)}.fav:hover{background:var(--bg2)}
+.card .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.omakase{margin-top:22px;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px 18px}
+.omakase h2{margin:0;font-size:19px}.omakase p{margin:4px 0 0;color:var(--mute);font-size:14px}
+.omakase .row{margin-top:10px}
+.btn{font:inherit;font-weight:700;border-radius:999px;padding:10px 20px;min-height:44px;cursor:pointer;border:2px solid var(--acc);background:var(--acc);color:var(--on)}
+.btn.sub2{background:transparent;color:var(--ink);border-color:var(--line)}
+#pickOut .card{margin-top:12px;border-color:var(--acc)}
+.pv{display:block;color:var(--ink);text-decoration:none;background:var(--bg2);border-radius:10px;padding:8px 10px;font-size:13.5px;line-height:1.5}
+.pv:hover{background:color-mix(in srgb,var(--lav) 12%,var(--bg2))}
+.note{color:var(--mute);font-size:13px;margin-top:36px}
+
+:root[data-night]{--bg:#05080e;--bg2:#0a0f17;--card:#0b1119;--ink:#a3aab5;--mute:#5f6a7a;--lav:#6f8e98;--acc:#b5965f;--line:#172030;--mint:#5f8f80;--on:#d1bd8f;--moon:#8a6f45;--star:#4d5561}
+:root[data-night] body{background:var(--bg)}
+:root[data-night] .btn.pri,:root[data-night] .badge,:root[data-night] .toast,:root[data-night] .cta,:root[data-night] .btn:not(.sub2)[id=pick]{background:#3a3122!important;border-color:#3a3122!important;color:#d1bd8f!important}
+:root[data-night] *,:root[data-night] *::before{animation:none!important;transition:none!important}
+:root[data-night] .tw{opacity:.5}
+.nightbtn{font:inherit;font-size:13px;background:transparent;color:var(--mute);border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;min-height:34px;cursor:pointer;white-space:nowrap}
+.nightbtn:hover{color:var(--ink)}.nightbtn.hint{border-color:var(--acc);color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><a class="back" href="./">← 診断ページへ</a><button class="nightbtn" id="nightBtn" aria-pressed="false">☾ おやすみモード</button></div>
+  <h1>掲載チャンネル一覧</h1>
+  <p class="sub" id="lead">今夜の推しASMRに載っているチャンネルを、ジャンル別にまとめました。</p>
+  <a class="cta" href="./">☾ 質問に答えて、今夜の推しを診断する</a>
+
+  <section class="omakase" id="random">
+    <h2>☆ 今夜のおまかせ</h2>
+    <p>質問なしで、下で選んだジャンルと絞り込みの中から1人をおまかせで選びます。</p>
+    <div class="row"><button class="btn" id="pick">おまかせで選ぶ</button><button class="btn sub2" id="pickAgain" hidden>もう一度</button></div>
+    <div id="pickOut"></div>
+  </section>
+
+  <div class="tools">
+    <div class="row">
+      <input type="search" id="q" placeholder="名前で探す（例：耳かき、パトラ）" aria-label="チャンネルを検索">
+      <select id="sort" aria-label="並び順">
+        <option value="subs">登録者が多い順</option>
+        <option value="last">最近配信した順</option>
+        <option value="pw">投稿が多い順</option>
+      </select>
+    </div>
+    <div class="chips" id="genres" role="group" aria-label="ジャンル"></div>
+    <div class="row" style="margin-top:6px" role="group" aria-label="絞り込み">
+      <button class="toggle" data-f="vt" aria-pressed="false">VTuberだけ</button>
+      <button class="toggle" data-f="ja" aria-pressed="false">日本語だけ</button>
+      <button class="toggle" data-f="m" aria-pressed="false">男性の配信者</button>
+      <button class="toggle" data-f="ku" aria-pressed="false">KU100</button>
+      <button class="toggle" data-f="nosp" aria-pressed="false">刺激強めを除く</button>
+      <button class="toggle" data-f="now" aria-pressed="false" id="nowBtn">今の時間帯によく配信</button>
+      <button class="toggle" data-f="fav" aria-pressed="false" id="favBtn">★ お気に入り</button>
+    </div>
+  </div>
+
+  <p class="count" id="count"></p>
+  <main id="list"></main>
+  <p class="note">データ更新日：2026年11月22日。登録者数などはYouTube Data APIで取得した時点の値です。ジャンルや声の性別は、動画タイトル・タグ・概要欄から自動で判定した目安なので、実際の作風と違うことがあります。1つのチャンネルが複数のジャンルに入ることもあります。</p>
+</div>
+<script>
+const G=[
+ ['ear','耳かき','綿棒・梵天・耳かき棒の音'],
+ ['whisper','囁き・吐息','ささやき声や耳ふー'],
+ ['brush','マッサージ・ブラシ','オイル・シャンプー・ヘッドスパ'],
+ ['tap','タッピング','トントン・カリカリ・タイピング'],
+ ['eat','咀嚼音','食べる音・モッパン'],
+ ['obj','物の音','スクイーズ・スライム・開封'],
+ ['water','水・ジェル・泡','炭酸や泡、ジェルの音'],
+ ['cosme','メイク・スキンケア','化粧品やスキンケアの音'],
+ ['cook','料理','料理を作る音'],
+ ['rp','ロールプレイ','お店屋さん・看病・診察など'],
+ ['heart','添い寝・心音','膝枕や心音のシチュエーション'],
+ ['sleep','睡眠導入','寝落ち・おやすみ向け'],
+ ['none','ノートーク','声なし・音だけ'],
+ ['irl','実写・手元映像','顔出し・コスプレ・手元'],
+ ['game','ゲームしながら','ゲーム実況とASMR'],
+ ['endure','長時間・耐久','何時間も続く配信'],
+];
+const PRIMARY=['ear','whisper','brush','tap','eat','obj','water','cosme','cook','rp','heart','none','irl'];
+const TH=0.5;
+const st={g:'all',q:'',sort:'subs',f:new Set()};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>n>=1e4?(n/1e4).toFixed(n>=1e5?0:1).replace(/\.0$/,'')+'万人':n.toLocaleString()+'人';
+const LANG={ja:'日本',en:'英語',ko:'韓国語'};
+let C=[];
+const BK=['朝・昼','夕方〜夜早め','夜21〜24時','深夜0〜5時'];
+const bucket=h=>h<5?3:h<17?0:h<21?1:2;
+const nowB=()=>bucket(new Date().getHours());
+let FAV=new Set();try{FAV=new Set(JSON.parse(localStorage.getItem('asmr-fav')||'[]'))}catch(e){}
+const saveFav=()=>{try{localStorage.setItem('asmr-fav',JSON.stringify([...FAV]))}catch(e){}};
+const favBtn=c=>`<button class="fav" data-name="${esc(c.name)}" aria-pressed="${FAV.has(c.name)}" aria-label="${esc(c.name)}をお気に入り${FAV.has(c.name)?'から外す':'に追加'}">${FAV.has(c.name)?'★':'☆'}</button>`;
+function primary(c){let best=null,bv=0;for(const k of PRIMARY)if(c.f[k]>bv){bv=c.f[k];best=k}return best||'whisper'}
+function inG(c,k){return c.f[k]>=TH||primary(c)===k}
+function pass(c){
+  if(st.f.has('vt')&&!c.vt)return false;
+  if(st.f.has('ja')&&c.lang!=='ja')return false;
+  if(st.f.has('m')&&c.g!=='m')return false;
+  if(st.f.has('ku')&&!c.mic.includes('KU100'))return false;
+  if(st.f.has('nosp')&&c.spicy)return false;
+  if(st.f.has('now')){const b=nowB();if(!c.tb||c.tb[b]<0.3)return false}
+  if(st.f.has('fav')&&!FAV.has(c.name))return false;
+  if(st.q){const q=st.q.toLowerCase();const hay=(c.name+' '+(c.desc||'')+' '+(c.first||'')+' '+G.filter(([k])=>inG(c,k)).map(g=>g[1]).join(' ')).toLowerCase();if(!hay.includes(q))return false}
+  return true}
+const sorter={subs:(a,b)=>(b.subs||0)-(a.subs||0),last:(a,b)=>(b.last||'').localeCompare(a.last||''),pw:(a,b)=>(b.pw||0)-(a.pw||0)};
+const FL={ear:'耳かき',whisper:'囁き・吐息',brush:'マッサージ・ブラシ',tap:'タッピング',eat:'咀嚼音',obj:'物の音',water:'水・泡',cosme:'メイク',cook:'料理',rp:'ロールプレイ',heart:'添い寝・心音',sleep:'睡眠導入',none:'ノートーク',talk:'雑談',game:'ゲーム',irl:'実写',endure:'長時間'};
+function more(c){
+  const feats=Object.keys(FL).filter(k=>c.f[k]>0.05).sort((a,b)=>c.f[b]-c.f[a]).slice(0,6);
+  const nb=nowB();
+  const time=c.tb?`<h4>生配信を始める時間帯（よく配信：${c.th}時ごろ）</h4><div class="bars">${BK.map((l,i)=>`<span>${l}</span><span class="tr"><i class="${i===nb?'now':''}" style="width:${Math.round(c.tb[i]*100)}%"></i></span><span class="n">${Math.round(c.tb[i]*100)}%</span>`).join('')}</div>`:'<h4>生配信の時間帯</h4><p style="margin:0;color:var(--mute)">動画投稿が中心のため、データがありません</p>';
+  const fs=feats.length?`<h4>最近の動画に多い音（目安）</h4><div class="bars">${feats.map(k=>`<span>${FL[k]}</span><span class="tr"><i style="width:${Math.round(c.f[k]*100)}%"></i></span><span class="n"></span>`).join('')}</div>`:'';
+  const vs=(c.v||[]).length?`<h4>最近のASMR動画</h4><ul class="vl">${c.v.map(v=>`<li><a href="https://www.youtube.com/watch?v=${encodeURIComponent(v[0])}" target="_blank" rel="noopener">▶ ${esc(v[1])}</a><small>${v[2]}${v[3]?'・生配信':''}</small></li>`).join('')}</ul>`:'';
+  const sm=(c.sim||[]).map(j=>C[j]).filter(Boolean);
+  const sims=sm.length?`<h4>この人が好きならこちらも</h4><div class="tags">${sm.map(x=>`<button class="simname" data-n="${esc(x.name)}">${esc(x.name)}</button>`).join('')}</div>`:'';
+  return `<details class="more"><summary>詳しく見る</summary>${vs}${time}${fs}${sims}</details>`;
+}
+function card(c,opts){
+  const gs=G.filter(([k])=>c.f[k]>=TH).sort((a,b)=>c.f[b[0]]-c.f[a[0]]).slice(0,4).map(g=>`<span>${g[1]}</span>`).join('');
+  const who=c.vt?`<span class="vt">VTuber${c.lang&&LANG[c.lang]?'・'+LANG[c.lang]:''}</span>`:(c.lang&&LANG[c.lang]&&c.lang!=='ja'?`<span class="vt">${LANG[c.lang]}</span>`:'');
+  const mics=c.mic.map(m=>`<span class="mic">${esc(m)}</span>`).join('');
+  const male=c.g==='m'?'<span>男性</span>':'';
+  const time=c.tb?`・よく配信：${c.th}時ごろ`:'';
+  const pv=opts&&opts.v?`<a class="pv" href="https://www.youtube.com/watch?v=${encodeURIComponent(opts.v[0])}" target="_blank" rel="noopener">▶ ${esc(opts.v[1])}</a>`:'';
+  return `<article class="card"><div class="hd"><h3>${esc(c.name)}</h3>${favBtn(c)}</div>
+  <p class="facts">${c.subs?`登録者 <b>${fmt(c.subs)}</b>`:'登録者数 非公開'}${c.last?`・最終 ${c.last}`:''}${time}</p>
+  <div class="tags">${who}${male}${mics}${gs}</div>
+  <p class="d">${esc(c.desc||c.first||'')}</p>
+  ${pv}${more(c)}<a class="yt" href="${esc(c.url)}" target="_blank" rel="noopener">チャンネルを見る ↗</a></article>`}
+function render(){
+  document.getElementById('nowBtn').textContent=`今（${BK[nowB()]}）よく配信`;
+  document.getElementById('favBtn').textContent=`★ お気に入り${FAV.size?' '+FAV.size:''}`;
+  const pool=C.filter(pass).sort(sorter[st.sort]);
+  const counts=Object.fromEntries(G.map(([k])=>[k,pool.filter(c=>inG(c,k)).length]));
+  document.getElementById('genres').innerHTML=`<button class="chip" data-g="all" aria-pressed="${st.g==='all'}">すべて<small>${pool.length}</small></button>`+
+    G.filter(([k])=>counts[k]).map(([k,l])=>`<button class="chip" data-g="${k}" aria-pressed="${st.g===k}">${l}<small>${counts[k]}</small></button>`).join('');
+  const list=document.getElementById('list');
+  if(st.g==='all'){
+    const by={};for(const c of pool){const p=primary(c);(by[p]=by[p]||[]).push(c)}
+    const secs=G.filter(([k])=>by[k]).map(([k,l,d])=>`<section><h2>${l}<small>${by[k].length}チャンネル</small></h2><p class="gdesc">${d}がいちばん多いチャンネル</p><div class="cards">${by[k].map(card).join('')}</div></section>`);
+    list.innerHTML=secs.join('')||`<p class="empty">${st.f.has('fav')&&!FAV.size?'まだお気に入りがありません。カードの☆を押すと、ここに集まります。':'条件に合うチャンネルがありません。'}</p>`;
+    document.getElementById('count').textContent=`${pool.length}チャンネル（いちばん多いジャンルごとに表示）`;
+  }else{
+    const g=G.find(x=>x[0]===st.g),arr=pool.filter(c=>inG(c,st.g));
+    list.innerHTML=arr.length?`<section><h2>${g[1]}<small>${arr.length}チャンネル</small></h2><p class="gdesc">${g[2]}が多いチャンネル</p><div class="cards">${arr.map(card).join('')}</div></section>`:'<p class="empty">条件に合うチャンネルがありません。</p>';
+    document.getElementById('count').textContent=`${arr.length}チャンネル`;
+  }
+}
+document.getElementById('genres').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;st.g=b.dataset.g;render();document.getElementById('count').scrollIntoView({block:'start',behavior:'smooth'})});
+document.querySelectorAll('.toggle').forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.f;st.f.has(f)?st.f.delete(f):st.f.add(f);b.setAttribute('aria-pressed',st.f.has(f));render()}));
+document.addEventListener('click',e=>{const sb=e.target.closest('.simname');if(!sb)return;const q=document.getElementById('q');q.value=sb.dataset.n;st.q=sb.dataset.n;st.g='all';render();document.getElementById('count').scrollIntoView({block:'start',behavior:'smooth'})});
+document.addEventListener('click',e=>{const b=e.target.closest('.fav');if(!b)return;const n=b.dataset.name;FAV.has(n)?FAV.delete(n):FAV.add(n);saveFav();
+  document.querySelectorAll('.fav').forEach(x=>{if(x.dataset.name===n){const on=FAV.has(n);x.textContent=on?'★':'☆';x.setAttribute('aria-pressed',on);x.setAttribute('aria-label',n+'をお気に入り'+(on?'から外す':'に追加'))}});
+  document.getElementById('favBtn').textContent=`★ お気に入り${FAV.size?' '+FAV.size:''}`;if(st.f.has('fav'))render()});
+function omakase(){
+  const pool=C.filter(pass).filter(c=>st.g==='all'||inG(c,st.g));const out=document.getElementById('pickOut');
+  if(!pool.length){out.innerHTML='<p class="empty" style="margin-top:12px">条件に合うチャンネルがありません。絞り込みを少しゆるめてみてください。</p>';return}
+  const c=pool[Math.floor(Math.random()*pool.length)];
+  const vs=c.v||[];const v=vs.find(x=>st.g!=='all'&&x[4].includes(st.g))||vs.find(x=>x[4].includes('sleep'))||vs[0];
+  const g=G.find(x=>x[0]===st.g);
+  out.innerHTML=`<p style="margin-top:12px">${g?`「${g[1]}」の`:''}${pool.length}チャンネルから選びました</p>`+card(c,{v});
+  document.getElementById('pickAgain').hidden=false;
+}
+document.getElementById('pick').addEventListener('click',omakase);
+document.getElementById('pickAgain').addEventListener('click',omakase);
+document.getElementById('q').addEventListener('input',e=>{st.q=e.target.value.trim();render()});
+document.getElementById('sort').addEventListener('change',e=>{st.sort=e.target.value;render()});
+const hg=decodeURIComponent(location.hash.slice(1));
+fetch('data.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{C=d;
+  if(G.some(g=>g[0]===hg))st.g=hg;
+  if(hg==='fav'){st.f.add('fav');document.getElementById('favBtn').setAttribute('aria-pressed','true')}
+  document.getElementById('lead').textContent=`今夜の推しASMRに載っている${C.length}チャンネル（VTuber ${C.filter(c=>c.vt).length}人を含む）を、ジャンル別にまとめました。`;
+  render();if(hg==='random'){document.getElementById('random').scrollIntoView({block:'start'});omakase()}
+  window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h==='random'){document.getElementById('random').scrollIntoView({block:'start'});omakase()}else if(h==='fav'){st.f.add('fav');document.getElementById('favBtn').setAttribute('aria-pressed','true');render()}else if(G.some(g=>g[0]===h)){st.g=h;render()}})}).catch(err=>{document.getElementById('list').innerHTML='<p class="empty">データを読み込めませんでした。ページを再読み込みしてください。（'+esc(err.message)+'）</p>'});
+</script>
+<script>
+(function(){const b=document.getElementById('nightBtn');if(!b)return;
+  const on=()=>document.documentElement.hasAttribute('data-night');
+  const set=v=>{v?document.documentElement.setAttribute('data-night',''):document.documentElement.removeAttribute('data-night');try{localStorage.setItem('asmr-night',v?'1':'0')}catch(e){}label()};
+  const label=()=>{b.textContent=on()?'☀ 元の明るさ':'☾ おやすみモード';b.setAttribute('aria-pressed',on());
+    let chosen=null;try{chosen=localStorage.getItem('asmr-night')}catch(e){}const h=new Date().getHours();b.classList.toggle('hint',!on()&&chosen===null&&(h>=21||h<5))};
+  b.addEventListener('click',()=>set(!on()));label();})();
+</script>
+</body>
+</html>
