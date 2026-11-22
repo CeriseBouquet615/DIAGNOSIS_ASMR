@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="今夜の推しASMR">
 <meta property="og:title" content="今夜の推しASMR｜あなたのASMR推しが見つかる診断">
-<meta property="og:description" content="質問に答えるだけで、200以上のASMRチャンネルからあなたの耳にぴったりの推しを探します。">
+<meta property="og:description" content="質問に答えるだけで、270以上のASMRチャンネルからあなたの耳にぴったりの推しを探します。">
 <meta property="og:url" content="https://cerisebouquet615.github.io/DIAGNOSIS_ASMR/">
 <meta property="og:image" content="https://cerisebouquet615.github.io/DIAGNOSIS_ASMR/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -182,11 +182,11 @@ fetch('data.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status
 
 const LABEL={ear:'耳かき',whisper:'囁き',brush:'マッサージ・ブラシ',tap:'タッピング',eat:'咀嚼音',obj:'物の音・スクイーズ',cosme:'メイク・スキンケア',cook:'料理の音',rp:'ロールプレイ',none:'ノートーク',talk:'雑談',sleep:'睡眠導入',game:'ゲーム',collab:'コラボ・両耳同時',endure:'長時間・耐久',heart:'心音・添い寝・膝枕',onoma:'オノマトペ・言葉',irl:'実写・コスプレ・手元映像',water:'水・ジェル・泡の音',onee:'お姉さん系の声',low:'低め・ダウナーな声',cute:'甘い・可愛い声'};
 const tier=c=>c.subs>=1e6?'big':c.subs>=2e5?'mid':'small';
-// 登録者数から「人気者／中堅／知る人ぞ知る」をなめらかに判定（境目の人はどちらにも少し入る）
+// 登録者数から「人気者（約18万人〜）／実力派／これから注目（〜約7万人）」をなめらかに判定。掲載チャンネルがほぼ3等分になる境目（境目の人はどちらにも少し入る）
 const sig=x=>1/(1+Math.exp(-x));
 // 長さ（分）を「短い／中くらい／長い」になめらかに分ける（境目a・bの前後は両方に入る）
 const lenM=(m,a,b)=>{const x=Math.log(Math.max(m,1)),l=sig((x-Math.log(b))/0.15),s=sig((Math.log(a)-x)/0.15);return [s,Math.max(0,1-l-s),l]};
-const popM=c=>{const x=Math.log10(Math.max(c.subs||5e4,1e4)),b=sig((x-5.45)/0.1),sm=sig((5.0-x)/0.1);return [b,Math.max(0,1-b-sm),sm]};
+const popM=c=>{const x=Math.log10(Math.max(c.subs||5e4,1e4)),b=sig((x-5.25)/0.1),sm=sig((4.85-x)/0.1);return [b,Math.max(0,1-b-sm),sm]};
 const hasKU=c=>c.mic.includes('KU100');
 const T=(k,q,h,[a,b,cc,d]=['大好き','まあ好き','どちらでもない','苦手'])=>({id:k,q,h,trait:k,o:[
   [a,'',c=>0.06+0.94*c.f[k]],[b,'',c=>0.35+0.65*c.f[k]],[cc,'',()=>1],[d,'',c=>1-0.88*c.f[k]]]});
@@ -540,9 +540,8 @@ function renderResult(){
   if(m)m.textContent=h<5?'夜ふかしさん、そろそろおやすみ':h<17?'今夜のために、先に選んでおこう':h<21?'おやすみ前の準備に、今夜の1本を':'おやすみまで、あと少し';
   setTimeout(tick,1000-d.getMilliseconds()+5)})();
 document.getElementById('subline').textContent=`質問に答えるたびに、${C.length}のASMRチャンネル（VTuber ${C.filter(c=>c.vt).length}人を含む）から候補を絞り込みます`;
-document.getElementById('srcBody').innerHTML=`<p>YouTube Data APIで取得したデータです。この会話で調べたチャンネルに加え、「ASMR KU100」「ASMR 耳かき 睡眠導入」など20個の言葉で半年以内の動画を検索し、投稿者を自動で集めました。掲載条件は<b>登録者5万人以上</b>・<b>半年以内に配信あり</b>・<b>直近50本のうちASMRのタイトルが6本以上</b>です。</p>
-<p>質問は「20の質問」ゲームと同じ考え方で選んでいます。各チャンネルの特徴（言語、VTuberかどうか、生配信の割合と時間帯、配信頻度、機材、登録者数、最近50本のタイトル・概要欄・タグに出てくる音の種類など）を数値にし、答えによって候補が最も均等に分かれる質問を毎回計算して出します。候補が十分に絞れたら（または${MAX_Q}問で）結果を出します。自動で集めたチャンネルの紹介文はタイトルから機械的に作ったものです。</p>
-<p>データ更新日：2026年11月22日。チャンネルごとの詳しい情報は<a href="channels.html">掲載チャンネル一覧</a>で見られます。</p>`;
+document.getElementById('srcBody').innerHTML=`<p>YouTube Data APIで取得したデータです（データ更新日：2026年11月22日）。あらかじめ選んだ配信者に加え、「ASMR KU100」「ASMR 耳かき 睡眠導入」など28個の言葉で半年以内の動画を検索し、投稿者を自動で集めました。掲載条件は<b>登録者3万人以上</b>・<b>半年以内に配信あり</b>・<b>直近50本のうちASMRのタイトルが6本以上</b>で、今は${C.length}チャンネル（VTuber ${C.filter(c=>c.vt).length}人）を載せています。</p>
+<p>質問は「20の質問」ゲームと同じ考え方で選んでいます。各チャンネルの特徴（言語、VTuberかどうか、生配信の割合・時間帯・曜日・長さ、動画の長さ、配信頻度、機材、登録者数、最近50本のタイトル・概要欄・タグや再生リスト名に出てくる音の種類など）を数値にし、答えによって候補が最も均等に分かれる質問を毎回計算して出します。候補が十分に絞れたら（または${MAX_Q}問で）結果を出します。声の性別や自動で集めたチャンネルの紹介文は、タイトルなどから推測したものです。チャンネルごとの詳しい情報は<a href="channels.html">掲載チャンネル一覧</a>で見られます。</p>`;
 
 render();
 }).catch(err=>{document.getElementById('app').innerHTML='<p style="padding:24px">データを読み込めませんでした。ページを再読み込みしてください。（'+err.message+'）</p>'});
